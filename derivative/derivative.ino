@@ -3,6 +3,7 @@
 // Include the current library
 
 #include "MecatroUtils.h"
+#include "derivative.h"
 
 // Include the AS5600 library (for the encoders) and Sparkfun I2C Mux (for multiplexer)
 #include "AS5600.h"
@@ -31,20 +32,6 @@ double omega;
 uint32_t now;
 uint32_t lastMeasurement;
 double t = 0;
-
-double getDerivative(double yPrevious, double psiPrevious, double psiCurrent) {
-  /*This function outputs the yCurrent term of the estimator from the filtered derivative calculation
-  based on previous values for y and psi (the measured value)
-  The original equation used is 
-  omega_dot = (psi_dot - omega)/tau
-  which is changed to
-  x_dot = - x/tau - psi/(tau^2)
-  where x = omega - psi/tau
-  */
-  double alpha = deltaT/(2*tau);
-  return ((1.0/(1.0+alpha))*(yPrevious*(1.0 - alpha) - (psiCurrent + psiPrevious)*alpha/tau));
-
-};
 
 double getAffineCurrentValue(double a, double x, double b) {
   return (a*x + b);
@@ -156,7 +143,7 @@ void mecatro::controlLoop()
   phiPrevious = phiCurrent;
   phiCurrent = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
   xPrevious = xCurrent;
-  xCurrent = getDerivative(xPrevious, phiPrevious, phiCurrent);
+  xCurrent = derivative::getFilteredDerivative(xPrevious, phiPrevious, phiCurrent, tau, deltaT);
   omega = xCurrent + phiCurrent/tau;
 
   // Send data
