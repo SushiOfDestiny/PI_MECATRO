@@ -1,14 +1,17 @@
 namespace derivative {
-    double getFilteredDerivative(double yPrevious, double psiPrevious, double psiCurrent, double tau, double deltaT) {
-  /*This function outputs the yCurrent term of the estimator from the filtered derivative calculation
-  based on previous values for y and psi (the measured value)
+    double getFilteredDerivative(double xPrevious, double deltaYPrevious, double deltaYCurrent, double epsilon, double deltaT) {
+  /*This function outputs the xCurrent term of the estimator from the filtered derivative calculation
+  based on previous values for eta and deltaY (the measured value)
+  
+  WARNING : xCurrent = eta - deltaY/epsilon so to get etaCurrent, use xCurrent + deltaY/epsilon
+
   The original equation used is 
-  omega_dot = (psi_dot - omega)/tau
+  eta_dot = (deltaY_dot - eta)/epsilon
   which is changed to
-  y_dot = - y/tau - psi/(tau^2)
-  where y = omega - psi/tau
+  x_dot = - eta/epsilon - deltaY/(epsilon^2)
+  where x = eta - deltaY/epsilon
   */
-  const double alpha = deltaT/(2*tau);
-  return ((1.0/(1.0+alpha))*(yPrevious*(1.0 - alpha) - (psiCurrent + psiPrevious)*alpha/tau));
+  const double alpha = deltaT/(2*epsilon);
+  return ((1.0/(1.0+alpha))*(xPrevious*(1.0 - alpha) - (deltaYCurrent + deltaYPrevious)*alpha/epsilon));
 };
 }
