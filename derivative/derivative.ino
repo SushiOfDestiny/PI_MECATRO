@@ -107,7 +107,7 @@ void setup()
   phiCurrent = 0;
   xPrevious = 0;
   xCurrent = 0;
-  now = micros();
+  now = micros(); // Print current time
 }
 
 void loop()
