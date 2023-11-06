@@ -15,7 +15,7 @@
 // Header for constants
 #include "constants.h"
 // Header for controlers
-#include "controlers.h"
+#include "controllers.h"
 
 // Define the control loop period, in ms.
 #define CONTROL_LOOP_PERIOD 5
@@ -26,6 +26,42 @@
 QWIICMUX multiplexer;
 AS5600 rightEncoder, leftEncoder;
 
+// CONSTANTS
+double const deltaT = CONTROL_LOOP_PERIOD * e-3;
+
+// VARIABLES
+double phiLCurrent;
+
+double phiRCurrent;
+
+double DeltaPhiSumCurrent;
+double DeltaPhiSumPrevious;
+
+double DeltaPhiDifCurrent;
+double DeltaPhiDifPrevious;
+
+double position;
+double cLFCurrent;
+
+double etaSumCurrent;
+double etaSumPrevious;
+
+double etaDifCurrent;
+double etaDifPrevious;
+
+double DeltaPhiSumDot;
+double DeltaPhiDifDot;
+
+double deltaCLF;
+
+double USum;
+double UDif;
+
+double Ur;
+double Ul;
+
+double time;
+
 
 void setup()
 {
@@ -35,8 +71,10 @@ void setup()
     Serial.begin(230400);
 
     // Initialize telemetry
-    unsigned int const nVariables = 2;
-    String variableNames[nVariables] = {"right raw angle", ="left raw angle"};
+    unsigned int const nVariables = 6;
+    String variableNames[nVariables] = {"right raw angle", "right raw angle speed", "right filtered angular speed",
+    "left raw angle", "left raw angle speed", "left filtered angular speed"};
+    
     mecatro::initTelemetry(nVariables, variableNames);
 
 
@@ -109,6 +147,12 @@ void setup()
         }
 
     // Initialize previous variables for filtered derivatives
+    DeltaPhiSumPrevious = 0;
+    DeltaPhiDifPrevious = 0;
+    etaSumPrevious = 0;
+    etaDifPrevious = 0;
+    Ur = Urbar;
+    Ul = Ulbar;
 
 }
 
@@ -128,10 +172,16 @@ void mecatro::controlLoop()
     // Retrieve Angular Datas
     // Set multiplexer to use port LEFT_ENCODER_PIN to talk to left encoder.
     multiplexer.setPort(LEFT_ENCODER_PIN);
-    double phil = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
+    phiLCurrent = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
+
     // Set multiplexer to use port right_ENCODER_PIN to talk to right encoder.
     multiplexer.setPort(RIGHT_ENCODER_PIN);
-    double phir = rightEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
+    phiRCurrent = rightEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
+
+    // Conversion into delta with ref in Sum,Diff base
+    time = micros() / 1e6;
+    DeltaPhiSumCurrent = phiRCurrent + phiLCurrent - controllers::phiSumRef(time);
+    DeltaPhiDifCurrent = phiRCurrent - phiLCurrent - 0;
 
     // Retrieve position to line
     if( mySensorBar.getDensity() > 7 )
@@ -141,12 +191,40 @@ void mecatro::controlLoop()
         mecatro::setMotorDutyCycle(0., 0.);
     }
     else{
-        double position;
         position = mySensorBar.getPosition();
-        double cLF = positionTocLF(position);
+        cLFCurrent = positionTocLF(position);       
 
+        deltaCLF = cLFCurrent - cLFRef; 
         
+        // get Us command input for Sum subsystem given by PD controller
+        etaSumCurrent = controllers::etaPDSumApprox(
+            etaSumPrevious, DeltaPhiSumCurrent, DeltaPhiSumPrevious, 1/ns, deltaT);        
+        DeltaPhiSumDot = controllers::etaToDerivative(etaSumCurrent, DeltaPhiSumCurrent, 1/ns);
         
+        USum = controllers::usPDSumApprox(DeltaPhiSumDot, DeltaPhiSumCurrent);
+
+        // get Ud command input for Dif subsystem given by PD+P controller 
+        etaDifCurrent = controllers::etaPDDifApprox(
+            etaDifPrevious, DeltaPhiDifCurrent, DeltaPhiDifPrevious, 1/ns, deltaT);       
+
+        UDif = controllers::udPDDifApprox(DeltaPhiDifDot, DeltaPhiDifCurrent + deltaCLF);
+
+        // Convert into right, left base
+        Ur = 0.5*(USum + Udif);
+        Ul = 0.5*(USum - UDif);
+
+        // Update motor orders
+        // Assuming max voltage is 12V and that motordutycycle is proportional to voltage
+        mecatro::setMotorDutyCycle(Ur/Umax, Ul/Umax);
+        
+        // update previous variables
+        DeltaPhiSumPrevious = DeltaPhiSumCurrent;
+        DeltaPhiDifPrevious = DeltaPhiDifCurrent;
+        etaSumPrevious = etaSumCurrent;
+        etaDifPrevious = etaDifCurrent;
+
+
+
     }
 
 
