@@ -86,6 +86,9 @@ static const double h1 = w0^2/Qs/alpha;
 static const double h2 = 1/alpha*(-2*xi*w0/Qs + 2*k/rho);
 static const double h3 = h1;
 
+// Pas discret de temps
+static const double deltaT = 5e-3;
+
 // PD approximé
 static const double Tds = h2/h1;
 static const double ns = 50; // à régler, augmente la sensibilité au bruit.
