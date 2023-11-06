@@ -29,8 +29,10 @@ double etaCurrent;
 double etaPrevious;
 double ePrevious;
 double eCurrent;
+double eDotCurrent;
+double filteredEDot;
 const double tau = 1.0/25.0;
-const double deltaT = 0.005;
+// const double deltaT = 0.005;
 double omega;
 uint32_t now;
 uint32_t lastMeasurement;
@@ -42,10 +44,9 @@ void setup()
   // 230400 is the fastest speed for bluetooth ; if using USB, you can go up to 
   // 1000000.
   Serial.begin(1000000);
-
   // Initialize telemetry
-  unsigned int const nVariables = 1;
-  String variableNames[nVariables] = {"raw angle", "angular speed", "filtered angular speed"};
+  unsigned int const nVariables = 3;
+  String variableNames[nVariables] = {"sin", "dérivée mathématique", "dérivée filtrée"};
   mecatro::initTelemetry(nVariables, variableNames);
 
   // Start I2C communication
@@ -139,9 +140,9 @@ void mecatro::controlLoop()
   t++;
   ePrevious = eCurrent;
   // eCurrent = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
-  const double puls = 1 / 1000.0;
+  const double puls = 1;
   
-  double time = millis();
+  double time = millis()/1000.0;
   eCurrent = sin(time * puls);
   eDotCurrent = puls * cos(time * puls);
 
@@ -149,12 +150,13 @@ void mecatro::controlLoop()
 
   // etaCurrent = derivative::getFilteredDerivative(etaPrevious, ePrevious, eCurrent, tau, deltaT);
   etaCurrent = derivative2::auxVarEta(eCurrent, ePrevious, etaPrevious, ns);
-  filteredEDot = derivative2::getFilteredDeriv(eta,ns,eCurrent);
+  filteredEDot = (1.0/25.0)*derivative2::getFilteredDeriv(eta,ns,eCurrent);
 
   // Send data
   mecatro::log(0, eCurrent); // could use getCumulativePosition instead
   mecatro::log(1, eDotCurrent);
   mecatro::log(2, filteredEDot);
+  
 
   // Print data
   /*
