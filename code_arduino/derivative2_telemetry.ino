@@ -27,8 +27,8 @@ AS5600 leftEncoder;
 
 double etaCurrent;
 double etaPrevious;
-double phiPrevious;
-double phiCurrent;
+double ePrevious;
+double eCurrent;
 const double tau = 1.0/25.0;
 const double deltaT = 0.005;
 double omega;
@@ -83,12 +83,12 @@ void setup()
     }
   }
 
-  // Initialize values for x_previous and phi_previous;
+  // Initialize values for x_previous and e_previous;
   multiplexer.setPort(LEFT_ENCODER_PIN);
-  //phiCurrent = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
+  //eCurrent = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
 
-  // Reference angular position phir is set to 0 for test
-  phiCurrent = 0;
+  // Reference angular position er is set to 0 for test
+  eCurrent = 0;
   etaPrevious = 0;
   etaCurrent = 0;
   now = micros(); // Print current time
@@ -125,36 +125,43 @@ void mecatro::controlLoop()
     //Serial.print(" ; warning: magnet too far.");
   }
 
-  // Get current values for phi and x
+  // Get current values for e and x
   /*
-  phiPrevious = phiCurrent;
-  phiCurrent = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
+  ePrevious = eCurrent;
+  eCurrent = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
   etaPrevious = etaCurrent;
-  etaCurrent = getDerivative(etaPrevious, phiPrevious, phiCurrent);
-  omega = etaCurrent + phiCurrent/tau;
+  etaCurrent = getDerivative(etaPrevious, ePrevious, eCurrent);
+  omega = etaCurrent + eCurrent/tau;
   */
 
   lastMeasurement = now;
   now = micros();
   t++;
-  phiPrevious = phiCurrent;
-  phiCurrent = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
+  ePrevious = eCurrent;
+  // eCurrent = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
+  const double puls = 1 / 1000.0;
+  
+  double time = millis();
+  eCurrent = sin(time * puls);
+  eDotCurrent = puls * cos(time * puls);
+
   etaPrevious = etaCurrent;
-  // etaCurrent = derivative::getFilteredDerivative(etaPrevious, phiPrevious, phiCurrent, tau, deltaT);
-  etaCurrent = derivative2::auxVarEta(phiCurrent, phiPrevious, etaPrevious, ns);
-  phiDot = derivative2::getFilteredDeriv(eta,ns,phiCurrent);
+
+  // etaCurrent = derivative::getFilteredDerivative(etaPrevious, ePrevious, eCurrent, tau, deltaT);
+  etaCurrent = derivative2::auxVarEta(eCurrent, ePrevious, etaPrevious, ns);
+  filteredEDot = derivative2::getFilteredDeriv(eta,ns,eCurrent);
 
   // Send data
-  mecatro::log(0, leftEncoder.rawAngle() * AS5600_RAW_TO_DEGREES); // could use getCumulativePosition instead
-  mecatro::log(1, leftEncoder.getAngularSpeed());
-  mecatro::log(2, phiDot);
+  mecatro::log(0, eCurrent); // could use getCumulativePosition instead
+  mecatro::log(1, eDotCurrent);
+  mecatro::log(2, filteredEDot);
 
   // Print data
   /*
-  Serial.print("Phi précédent : ");
-  Serial.print(phiPrevious);
-  Serial.print("  Phi courant : ");
-  Serial.print(phiCurrent);
+  Serial.print("e précédent : ");
+  Serial.print(ePrevious);
+  Serial.print("  e courant : ");
+  Serial.print(eCurrent);
   Serial.print("  Omega : ");
   Serial.print(omega);
   Serial.println();
@@ -163,7 +170,7 @@ void mecatro::controlLoop()
   /*
   Serial.print(leftEncoder.getAngularSpeed());
   Serial.print("Différence dérivées : ");
-  Serial.print(leftEncoder.getAngularSpeed() - getUnfilteredDerivative(phiPrevious, phiCurrent, 0.005));
+  Serial.print(leftEncoder.getAngularSpeed() - getUnfilteredDerivative(ePrevious, eCurrent, 0.005));
   Serial.println();
   */
 }
