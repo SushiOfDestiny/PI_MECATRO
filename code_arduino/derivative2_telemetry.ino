@@ -30,11 +30,11 @@ double etaPrevious;
 double ePrevious;
 double eCurrent;
 const double tau = 1.0/25.0;
-const double deltaT = 0.005;
 double omega;
 uint32_t now;
 uint32_t lastMeasurement;
 double t = 0;
+ const double puls = 1 / 1000.0;
 
 void setup()
 {
@@ -139,11 +139,11 @@ void mecatro::controlLoop()
   t++;
   ePrevious = eCurrent;
   // eCurrent = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
-  const double puls = 1 / 1000.0;
+ 
   
-  double time = millis();
-  eCurrent = sin(time * puls);
-  eDotCurrent = puls * cos(time * puls);
+  double time = millis() / 1e3;
+  eCurrent = sin(time);
+  eDotCurrent = cos(time);
 
   etaPrevious = etaCurrent;
 
