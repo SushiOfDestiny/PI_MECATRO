@@ -3,6 +3,9 @@
 // Include the current library
 
 #include "MecatroUtils.h"
+
+#include "constants.h"
+
 #include "derivative2.h"
 
 // Include the AS5600 library (for the encoders) and Sparkfun I2C Mux (for multiplexer)
