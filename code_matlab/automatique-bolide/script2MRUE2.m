@@ -171,7 +171,7 @@ eigSysDifOl = sort(eig(ADif))
 sumEig = sort(eig(ASum));
 
 % réglage PD idéal
-w0 = 2*abs(sumEig(1)); % accélération facteur 2000
+w0 = 1*abs(sumEig(1)); % accélération facteur 2000
 xi = 1/sqrt(2);
 % Gains
 h1 = w0^2/Qs/alpha;
@@ -232,7 +232,7 @@ figure(61), bode(sysSumBF,sysSumBFApprox), grid, title('RépFréq de sysSumBF et
 %% Modèle de commande diff
 
 % réglage Contrôleur Idéal, PD sur phid, P sur cLF
-sigma = 3; % à régler, réponse très lente.
+sigma = 10; % à régler, réponse très lente.
 % Gains
 k1 = 1/b2/eta*sigma^2*sqrt(6);
 k2 = 1/b2/eta*(-sigma*sqrt(6) - b1 + b2*k*l/rho);
