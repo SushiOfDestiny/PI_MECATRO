@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MF0 version="1.1" packageUris="http://schema.mathworks.com/mf0/slsa_mm_parameter_tuning/R2021b">
+  <slsa.mm.parametertuning.VariableRegistry type="slsa.mm.parametertuning.VariableRegistry" uuid="ca786b1d-c603-4b08-acbe-08f48684b382">
+    <defaultValueCachePath>E:\DOSSIERS PERSOS\ETUDES\ecoles_ingenieurs\mines paris\formation\2A\MECATRO\code\code_matlab\automatique-bolide\slprj\raccel\bolideMRU_simul_8etat\bolideMRU_simul_8etat_default_variable_values.mat</defaultValueCachePath>
+    <name>bolideMRU_simul_8etat</name>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="59a568f9-f58c-4977-890d-a45dba6fc3fb">
+      <name>Urbar</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="b974f598-135f-46dd-97e9-230e7956a303">
+      <name>R</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="290b7161-a188-4aca-97a5-af8c43f3c3b2">
+      <name>Ipsi</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="eede7491-5f83-4103-a692-8a5fb6f1ebb2">
+      <name>Iwy</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="9ff56042-6013-4195-83e4-000f2ce0af79">
+      <name>L</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="daaf3a28-5582-4db0-8b8e-bf7591ba7da6">
+      <name>beta</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="ea171d31-f405-4248-84a7-b83d3b630975">
+      <name>mb</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="ea932563-99eb-43bd-9478-44d1748ff52e">
+      <name>Ulbar</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="324843d2-dcb8-448a-82a5-293a79263ec2">
+      <name>M</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="c3801819-66b9-4620-bcfe-4cd9232b50a8">
+      <name>d</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="7a483d14-fc5f-4307-a70d-da0346f1e94e">
+      <name>gamma</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="e155cb1c-4853-4be3-b371-9bf64574deeb">
+      <name>k</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="9ee1f207-068b-4e84-88cc-5682fef7c73a">
+      <name>l</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="a268025d-0c87-407d-9695-3530cb305366">
+      <name>rho</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <variables type="slsa.mm.parametertuning.Variable" uuid="52cc98e1-e3ae-41e3-a592-6b81fd05fd3d">
+      <name>statebar</name>
+      <workspace type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f"/>
+    </variables>
+    <workspaces type="slsa.mm.parametertuning.Workspace" uuid="79298094-4e5e-4401-8562-c4af9185784f">
+      <name>bolideMRU_simul_8etat</name>
+      <type>MODEL</type>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="59a568f9-f58c-4977-890d-a45dba6fc3fb"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="b974f598-135f-46dd-97e9-230e7956a303"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="290b7161-a188-4aca-97a5-af8c43f3c3b2"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="eede7491-5f83-4103-a692-8a5fb6f1ebb2"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="9ff56042-6013-4195-83e4-000f2ce0af79"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="daaf3a28-5582-4db0-8b8e-bf7591ba7da6"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="ea171d31-f405-4248-84a7-b83d3b630975"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="ea932563-99eb-43bd-9478-44d1748ff52e"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="324843d2-dcb8-448a-82a5-293a79263ec2"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="c3801819-66b9-4620-bcfe-4cd9232b50a8"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="7a483d14-fc5f-4307-a70d-da0346f1e94e"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="e155cb1c-4853-4be3-b371-9bf64574deeb"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="9ee1f207-068b-4e84-88cc-5682fef7c73a"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="a268025d-0c87-407d-9695-3530cb305366"/>
+      <variables type="slsa.mm.parametertuning.Variable" uuid="52cc98e1-e3ae-41e3-a592-6b81fd05fd3d"/>
+    </workspaces>
+  </slsa.mm.parametertuning.VariableRegistry>
+</MF0>
