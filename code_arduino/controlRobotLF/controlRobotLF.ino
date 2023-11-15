@@ -78,10 +78,11 @@ void setup()
     // 1000000.
     Serial.begin(230400);
 
-    //USum = Usbar + h1 * (DeltaPhiSumCurrent - Tds * DeltaPhiSumDot);
-    Serial.println();
-    Serial.println(Usbar);
-    Serial.println(h2);
+    // Initialize telemetry
+    unsigned int const nVariables = 2;
+    String variableNames[nVariables] = {"deltacLF", "filtered deltacLF derivative"};
+    
+    mecatro::initTelemetry(nVariables, variableNames);
     // Start I2C communication
     Wire.begin();
     // Set I2C clock speed to 400kHz (fast mode)
@@ -100,7 +101,7 @@ void setup()
         rightEncoder.begin();
         if (!rightEncoder.isConnected())
         {
-        Serial.println("Error: could not connect to right encoder. Check wiring.");
+        //Serial.println("Error: could not connect to right encoder. Check wiring.");
         isMultipInit = false;
         }
         //Set multiplexer to use port LEFT_ENCODER_PIN to talk to left encoder.
@@ -108,7 +109,7 @@ void setup()
         leftEncoder.begin();
         if (!leftEncoder.isConnected())
         {
-        Serial.println("Error: could not connect to left encoder. Check wiring.");
+        //Serial.println("Error: could not connect to left encoder. Check wiring.");
         isMultipInit = false;
         }
     }
@@ -127,13 +128,13 @@ void setup()
     uint8_t isSensorInit = mySensorBar.begin();
     if(isSensorInit)
     {
-        Serial.println("sx1509 IC communication OK");
+        //Serial.println("sx1509 IC communication OK");
     }
     else
     {
-        Serial.println("sx1509 IC communication FAILED!");
+        //Serial.println("sx1509 IC communication FAILED!");
     }
-    Serial.println();
+    //Serial.println();
 
     // If Multip and Sensorbar are init, we configure Arduino
     if (isMultipInit && isSensorInit)
@@ -233,7 +234,8 @@ void mecatro::controlLoop()
 
         // Update motor orders
         // Assuming max voltage is 12V and that motordutycycle is proportional to voltage
-        Serial.println(deltacLFDot);
+        mecatro::log(0, deltacLF);
+        mecatro::log(1, deltacLFDot);
 
         mecatro::setMotorDutyCycle(Ur/Umax, -Ul/Umax); // minus sign is because of the wiring
 
