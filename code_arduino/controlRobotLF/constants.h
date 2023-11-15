@@ -2,17 +2,16 @@
 #define CONSTANTS_H
 
 #include <math.h>
-
-// Paramètres du Système
+// Paramètres du Système Updatés
 // Masses
-static const double mw = 0.1;
-static const double mb=1;
-static const double Ms=1.2;
+static const double mw = 0.6;
+static const double mb=0.894;
+static const double Ms=1.017;
 
 // Distances
-static const double rho=0.07;
-static const double l=0.02;
-static const double d=0.015; // distance A-C
+static const double rho=0.036;
+static const double l=0.165;
+static const double d=0.086; // distance A-C
 
 // Electriques
 static const double L=2.3e-3;
@@ -20,11 +19,11 @@ static const double R=2.2;
 // r;
 
 // Couples
-static const double k=0.342;
+static const double k=0.347;
 
 // Moments inertie A TROUVER
-static const double Iwy=1e-3;
-static const double Ipsi=1e-3;
+static const double Iwy=1.6e-4;
+static const double Ipsi=3.12e-2;
 
 // static constantes utilitaires
 static const double beta = (Ms + 2*Iwy/pow(rho, 2));
@@ -37,7 +36,7 @@ static const double etaConst = l/rho; // eta constant for phiDif
 // On néglige les perturbations sur les entrées et les mesures.
 
 // Références
-static const double ur = 0.1; //m/s
+static const double ur = 0.3; //m/s
 static const double psir = 0;
 // for horizontal MRU only
 static const double phiDifRef = 0;
@@ -53,12 +52,12 @@ static const double Udbar = 0;
 static const double Urbar = Usbar/2;
 static const double Ulbar = Usbar/2;
 
-static const double Umax = 12; // Real Umax is 12V but motors spin too fast at 12V
+static const double Umax = 5;
 
 static const double pbar = 0; // normally, should equals ubar*t, 
 // but is not in state function, so any value fits.
 static const double ubar = ur;
-//static const double psibar = psir;
+static const double psibar = psir;
 static const double vbar = 0;
 static const double Isbar = 0;
 static const double Idbar = 0;
@@ -84,14 +83,17 @@ static const double b2 = 1/gamma*l*k/2/rho/R;
 
 //// Modèle de commande somme
 // réglage PD idéal
-static const double absSumEig1 = 0.1;
+static const double absSumEig1;
 static const double w0 = 2*absSumEig1; // accélération facteur 2000
 static const double xi = pow(1/2, 0.5);
 
 // Gains
-static const double h1 = 0.01; //pow(w0, 2)/Qs/alpha;
-static const double h2 = 0.01*(1/alpha)*(-2*xi*w0/Qs + 2*k/rho);
+static const double h1 = pow(w0, 2)/Qs/alpha;
+static const double h2 = 1/alpha*(-2*xi*w0/Qs + 2*k/rho);
 static const double h3 = h1;
+
+// Pas discret de temps
+static const double deltaT = 5e-3;
 
 // PD approximé
 static const double Tds = h2/h1;
@@ -117,7 +119,7 @@ static const double Tdd = k2/k1;
 static const double nd = 50;
 
 // Modélisation du Capteur de Ligne du Line Follower / SensorBar
-static const double Nt = 127.*2; // TODO : prendre en compte la résolution améliorée due au moyennage ?
+static const double Nt = 127.*2;
 static const double lLF = 0.15;
 static const double deltaY = lLF / Nt;  
 
