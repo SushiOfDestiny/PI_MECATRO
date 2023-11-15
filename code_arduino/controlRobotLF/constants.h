@@ -2,6 +2,7 @@
 #define CONSTANTS_H
 
 #include <math.h>
+
 // Paramètres du Système
 // Masses
 static const double mw = 0.1;
@@ -36,7 +37,7 @@ static const double etaConst = l/rho; // eta constant for phiDif
 // On néglige les perturbations sur les entrées et les mesures.
 
 // Références
-static const double ur = 1; //m/s
+static const double ur = 0.1; //m/s
 static const double psir = 0;
 // for horizontal MRU only
 static const double phiDifRef = 0;
@@ -52,12 +53,12 @@ static const double Udbar = 0;
 static const double Urbar = Usbar/2;
 static const double Ulbar = Usbar/2;
 
-static const double Umax = 5;
+static const double Umax = 12; // Real Umax is 12V but motors spin too fast at 12V
 
 static const double pbar = 0; // normally, should equals ubar*t, 
 // but is not in state function, so any value fits.
 static const double ubar = ur;
-static const double psibar = psir;
+//static const double psibar = psir;
 static const double vbar = 0;
 static const double Isbar = 0;
 static const double Idbar = 0;
@@ -83,13 +84,13 @@ static const double b2 = 1/gamma*l*k/2/rho/R;
 
 //// Modèle de commande somme
 // réglage PD idéal
-static const double absSumEig1;
+static const double absSumEig1 = 0.1;
 static const double w0 = 2*absSumEig1; // accélération facteur 2000
 static const double xi = pow(1/2, 0.5);
 
 // Gains
-static const double h1 = pow(w0, 2)/Qs/alpha;
-static const double h2 = 1/alpha*(-2*xi*w0/Qs + 2*k/rho);
+static const double h1 = 0.01; //pow(w0, 2)/Qs/alpha;
+static const double h2 = 0.01*(1/alpha)*(-2*xi*w0/Qs + 2*k/rho);
 static const double h3 = h1;
 
 // PD approximé
@@ -120,7 +121,9 @@ static const double Nt = 127.*2; // TODO : prendre en compte la résolution amé
 static const double lLF = 0.15;
 static const double deltaY = lLF / Nt;  
 
-// P capteur de ligne
-static const double kclF = 55;
+// PD capteur de ligne
+static const double kcLF = 200; // Paramètres expérience vendredi 10/11 : kcLF = 55
+static const double epsiloncLF = 1.0/200.0;
+static const double kcLFDot = 15;
 
 #endif

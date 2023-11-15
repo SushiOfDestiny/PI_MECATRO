@@ -16,7 +16,7 @@
 #define CONTROL_LOOP_PERIOD 5
 
 // Define the Multiplexer pins corresponding to each encoder
-#define LEFT_ENCODER_PIN 0
+#define LEFT_ENCODER_PIN 3
 // #define RIGHT_ENCODER_PIN
 
 QWIICMUX multiplexer;
@@ -32,6 +32,7 @@ double omega;
 uint32_t now;
 uint32_t lastMeasurement;
 double t = 0;
+double pulsation = 1;
 
 double getAffineCurrentValue(double a, double x, double b) {
   return (a*x + b);
@@ -46,7 +47,7 @@ void setup()
   // Setup serial communication with the PC - for debugging and logging.
   // 230400 is the fastest speed for bluetooth ; if using USB, you can go up to 
   // 1000000.
-  Serial.begin(1000000);
+  Serial.begin(230400);
 
   // Initialize telemetry
   unsigned int const nVariables = 3;
@@ -113,7 +114,7 @@ void mecatro::controlLoop()
   // Des tests à l'aide de la fonction micros() ont montré que la période variait légèrement (jusqu'à 1%)
 
   // Start left motor
-  mecatro::setMotorDutyCycle(0.0, 0.1);
+  mecatro::setMotorDutyCycle(0.5, 0.5);
 
   // Set multiplexer to use port LEFT_ENCODER_PIN to talk to left encoder.
   multiplexer.setPort(LEFT_ENCODER_PIN);
@@ -138,18 +139,24 @@ void mecatro::controlLoop()
   */
 
   lastMeasurement = now;
-  now = micros();
+  now = millis()/(1e3);
   t++;
   phiPrevious = phiCurrent;
   phiCurrent = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
+  //phiCurrent = sin(pulsation*now);
   xPrevious = xCurrent;
   xCurrent = derivative::getFilteredDerivative(xPrevious, phiPrevious, phiCurrent, tau, deltaT);
   omega = xCurrent + phiCurrent/tau;
 
   // Send data
+  /*
   mecatro::log(0, leftEncoder.rawAngle() * AS5600_RAW_TO_DEGREES); // could use getCumulativePosition instead
   mecatro::log(1, leftEncoder.getAngularSpeed());
   mecatro::log(2, omega);
+  */
+ mecatro::log(0, phiCurrent);
+ mecatro::log(1, leftEncoder.getAngularSpeed());
+ mecatro::log(2, omega);
 
   // Print data
   /*

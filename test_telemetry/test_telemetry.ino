@@ -18,12 +18,13 @@
 #define CONTROL_LOOP_PERIOD 5
 
 // Define the Multiplexer pins corresponding to each encoder
-#define LEFT_ENCODER_PIN 0
-// #define RIGHT_ENCODER_PIN
+#define LEFT_ENCODER_PIN 3
+#define RIGHT_ENCODER_PIN 2
 
 QWIICMUX multiplexer;
 AS5600 rightEncoder, leftEncoder;
 
+float leftAngle, rightAngle;
 
 void setup()
 {
@@ -39,8 +40,8 @@ void setup()
   // mecatro::initTelemetry(nVariables, variableNames);
 
   // With 1 variable
-  unsigned int const nVariables = 1;
-  String variableNames[nVariables] = {"raw angle"};
+  unsigned int const nVariables = 3;
+  String variableNames[nVariables] = {"right angle", "left angle", "angle sum"};
   mecatro::initTelemetry(nVariables, variableNames);
 
   // Start I2C communication
@@ -51,25 +52,25 @@ void setup()
   // Init multiplexer
   if (!multiplexer.begin())
   {
-    Serial.println("Error: I2C multiplexer not found. Check wiring.");
+    //Serial.println("Error: I2C multiplexer not found. Check wiring.");
   }
   else
   {
     bool isInit = true;
     // // Set multiplexer to use port RIGHT_ENCODER_PIN to talk to right encoder.
-    // multiplexer.setPort(RIGHT_ENCODER_PIN);
-    // rightEncoder.begin();
-    // if (!rightEncoder.isConnected())
-    // {
-    //   Serial.println("Error: could not connect to right encoder. Check wiring.");
-    //   isInit = false;
-    // }
+    multiplexer.setPort(RIGHT_ENCODER_PIN);
+    rightEncoder.begin();
+    if (!rightEncoder.isConnected())
+    {
+      //Serial.println("Error: could not connect to right encoder. Check wiring.");
+      isInit = false;
+    }
     // Set multiplexer to use port LEFT_ENCODER_PIN to talk to left encoder.
     multiplexer.setPort(LEFT_ENCODER_PIN);
     leftEncoder.begin();
     if (!leftEncoder.isConnected())
     {
-      Serial.println("Error: could not connect to left encoder. Check wiring.");
+      //Serial.println("Error: could not connect to left encoder. Check wiring.");
       isInit = false;
     }
 
@@ -96,30 +97,46 @@ void loop()
 // Put all your code here.
 void mecatro::controlLoop()
 {
-  // Serial.println("Begin controlLoop");
+  //Serial.println("Begin controlLoop");
 
   // Start left motor
-  mecatro::setMotorDutyCycle(0.0, 0.5);
+  mecatro::setMotorDutyCycle(1.0, -1.0);
 
   // Set multiplexer to use port LEFT_ENCODER_PIN to talk to left encoder.
   multiplexer.setPort(LEFT_ENCODER_PIN);
+  leftAngle = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
+  //Serial.print(leftEncoder.rawAngle());
   
   // Check magnet positioning - this is for debug purposes only and is not required in normal operation.
   if (leftEncoder.magnetTooStrong())
   {
-    Serial.print(" ; warning: magnet too close.");
+    //Serial.print(" ; left encoder warning: magnet too close.");
   }
   if (leftEncoder.magnetTooWeak())
   {
-    Serial.print(" ; warning: magnet too far.");
+    //Serial.print(" ; left encoder warning: magnet too far.");
   }
-  Serial.println();
+  //Serial.println();
 
+  multiplexer.setPort(RIGHT_ENCODER_PIN);
+  rightAngle = rightEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
+  //Serial.print(rightEncoder.rawAngle());
+  // Check magnet positioning - this is for debug purposes only and is not required in normal operation.
+  if (rightEncoder.magnetTooStrong())
+  {
+    //Serial.print(" ; right encoder warning: magnet too close.");
+  }
+  if (rightEncoder.magnetTooWeak())
+  {
+    //Serial.print(" ; right encoder warning: magnet too far.");
+  }
+  //Serial.println();
 
   // Send data 
-  mecatro::log(0, leftEncoder.rawAngle() * AS5600_RAW_TO_DEGREES);
-  // mecatro::log(1, leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES);
-  // mecatro::log(2, leftEncoder.getAngularSpeed() * AS5600_RAW_TO_DEGREES);
+
+  mecatro::log(0, leftAngle);
+  mecatro::log(1, - rightAngle);
+  mecatro::log(2, leftAngle - rightAngle);
 
   // Show data in serial monitor
   // Serial.println(leftEncoder.rawAngle() * AS5600_RAW_TO_DEGREES);
