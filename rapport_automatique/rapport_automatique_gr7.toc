@@ -1,13 +1,16 @@
 \contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Création du contrôleur théorique}{3}{chapter.2}%
 \contentsline {paragraph}{Contrôle d'un mouvement rectiligne uniforme}{3}{section*.2}%
-\contentsline {paragraph}{Recherche des trajectoires d'équilibre}{4}{section*.3}%
-\contentsline {paragraph}{Linéarisé autour de l'équilibre}{4}{section*.4}%
-\contentsline {paragraph}{Simplifications par perturbations singulières}{5}{section*.5}%
-\contentsline {paragraph}{Système lent simplifié}{5}{section*.6}%
-\contentsline {chapter}{\numberline {3}Identification des paramètres physiques}{6}{chapter.3}%
-\contentsline {paragraph}{Estimation de la constante de couple k}{6}{section*.7}%
-\contentsline {paragraph}{Estimation des masses des pièces}{6}{section*.8}%
-\contentsline {paragraph}{Estimation des moments d'inertie}{6}{section*.9}%
-\contentsline {paragraph}{Estimation des constantes électriques}{7}{section*.10}%
-\contentsline {chapter}{\numberline {4}Implémentation du contrôleur en Arduino}{8}{chapter.4}%
+\contentsline {paragraph}{Recherche des trajectoires d'équilibre}{4}{section*.4}%
+\contentsline {paragraph}{Linéarisé autour de l'équilibre}{5}{section*.5}%
+\contentsline {paragraph}{Simplifications par perturbations singulières}{5}{section*.7}%
+\contentsline {paragraph}{Système lent simplifié}{6}{section*.8}%
+\contentsline {paragraph}{Découplage en sous-système "Sum" et "Dif"}{6}{section*.9}%
+\contentsline {paragraph}{Modélisation du contrôleur du sous-système "Sum"}{6}{section*.11}%
+\contentsline {paragraph}{Modélisation du contrôleur du sous-système "Dif"}{7}{section*.12}%
+\contentsline {chapter}{\numberline {3}Identification des paramètres physiques}{8}{chapter.3}%
+\contentsline {paragraph}{Estimation de la constante de couple k}{8}{section*.13}%
+\contentsline {paragraph}{Estimation des masses des pièces}{8}{section*.15}%
+\contentsline {paragraph}{Estimation des moments d'inertie}{8}{section*.16}%
+\contentsline {paragraph}{Estimation des constantes électriques}{9}{section*.18}%
+\contentsline {chapter}{\numberline {4}Implémentation du contrôleur en Arduino}{10}{chapter.4}%
