@@ -8,9 +8,11 @@
 \contentsline {paragraph}{Découplage en sous-système "Sum" et "Dif"}{6}{section*.9}%
 \contentsline {paragraph}{Modélisation du contrôleur du sous-système "Sum"}{6}{section*.11}%
 \contentsline {paragraph}{Modélisation du contrôleur du sous-système "Dif"}{7}{section*.12}%
-\contentsline {chapter}{\numberline {3}Identification des paramètres physiques}{8}{chapter.3}%
-\contentsline {paragraph}{Estimation de la constante de couple k}{8}{section*.13}%
-\contentsline {paragraph}{Estimation des masses des pièces}{8}{section*.15}%
-\contentsline {paragraph}{Estimation des moments d'inertie}{8}{section*.16}%
-\contentsline {paragraph}{Estimation des constantes électriques}{9}{section*.18}%
-\contentsline {chapter}{\numberline {4}Implémentation du contrôleur en Arduino}{10}{chapter.4}%
+\contentsline {paragraph}{Approximation des contrôleurs avec des dérivées filtrées}{7}{section*.13}%
+\contentsline {paragraph}{Réponses fréquentielles des systèmes fermés modélisés en Matlab}{7}{section*.14}%
+\contentsline {chapter}{\numberline {3}Identification des paramètres physiques}{9}{chapter.3}%
+\contentsline {paragraph}{Estimation de la constante de couple k}{9}{section*.17}%
+\contentsline {paragraph}{Estimation des masses des pièces}{9}{section*.19}%
+\contentsline {paragraph}{Estimation des moments d'inertie}{9}{section*.20}%
+\contentsline {paragraph}{Estimation des constantes électriques}{10}{section*.22}%
+\contentsline {chapter}{\numberline {4}Implémentation du contrôleur en Arduino}{11}{chapter.4}%
