@@ -7,14 +7,14 @@ format short g
 
 %% Paramètres du Système
 % Masses
-mw=0.1;
-mb=1;
-Ms=1.2;
+mw=0.06;
+mb=0.92;
+Ms=mb + 2*mw;
 
 % Distances
-rho=0.07;
-l=0.02;
-d=0.015; % distance A-C
+rho=0.036;
+l=0.165;
+d=0.086; % distance A-C
 
 % Electriques
 L=2.3e-3;
@@ -22,13 +22,13 @@ R=2.2;
 % r;
 
 % Couples
-k=0.342;
-% alpha=34.6;
-% beta=2.06e5;
+k=0.347;
+% alpha=33.5;
+% beta=2.26e-2;
 
 % Moments inertie A TROUVER
-Iwy=2.45e-4;
-Ipsi=1.53e-2;
+Iwy=1.6e-4;
+Ipsi=3.59e-2;
 
 % Constantes utilitaires
 beta = (Ms + 2*Iwy/rho^2);
@@ -40,8 +40,8 @@ eta = l/rho;
 % Mouvement Rectiligne Uniforme selon axe x du laboratoire.
 % On néglige les perturbations sur les entrées et les mesures.
 
-% Références
-ur = 1; %m/s
+% Commandes, Références
+ur = 0.5; %m/s
 psir = 0;
 
 % On fait le changement right,left (r,l) -> sum,dif (s,d)
