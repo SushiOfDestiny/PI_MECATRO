@@ -2,16 +2,16 @@
 #define CONSTANTS_H
 
 #include <math.h>
-// Paramètres du Système
+// Paramètres du Système Updatés
 // Masses
-static const double mw = 0.1;
-static const double mb=1;
-static const double Ms=1.2;
+static const double mw = 0.6;
+static const double mb=0.894;
+static const double Ms=1.017;
 
 // Distances
-static const double rho=0.07;
-static const double l=0.02;
-static const double d=0.015; // distance A-C
+static const double rho=0.036;
+static const double l=0.165;
+static const double d=0.086; // distance A-C
 
 // Electriques
 static const double L=2.3e-3;
@@ -19,11 +19,11 @@ static const double R=2.2;
 // r;
 
 // Couples
-static const double k=0.342;
+static const double k=0.347;
 
 // Moments inertie A TROUVER
-static const double Iwy=2.45e-4;
-static const double Ipsi=1.53e-2;
+static const double Iwy=1.6e-4;
+static const double Ipsi=3.12e-2;
 
 // static constantes utilitaires
 static const double beta = (Ms + 2*Iwy/pow(rho, 2));
@@ -36,7 +36,7 @@ static const double etaConst = l/rho; // eta constant for phiDif
 // On néglige les perturbations sur les entrées et les mesures.
 
 // Références
-static const double ur = 1; //m/s
+static const double ur = 0.3; //m/s
 static const double psir = 0;
 // for horizontal MRU only
 static const double phiDifRef = 0;
