@@ -2,6 +2,7 @@
 #define CONSTANTS_H
 
 #include <math.h>
+
 // Paramètres du Système Updatés
 // Masses
 static const double mw = 0.6;
@@ -36,7 +37,7 @@ static const double etaConst = l/rho; // eta constant for phiDif
 // On néglige les perturbations sur les entrées et les mesures.
 
 // Références
-static const double ur = 0.3; //m/s
+static const double ur = 0.5; //m/s
 static const double psir = 0;
 // for horizontal MRU only
 static const double phiDifRef = 0;
@@ -52,7 +53,7 @@ static const double Udbar = 0;
 static const double Urbar = Usbar/2;
 static const double Ulbar = Usbar/2;
 
-static const double Umax = 5;
+static const double Umax = 12;
 
 static const double pbar = 0; // normally, should equals ubar*t, 
 // but is not in state function, so any value fits.
@@ -83,17 +84,14 @@ static const double b2 = 1/gamma*l*k/2/rho/R;
 
 //// Modèle de commande somme
 // réglage PD idéal
-static const double absSumEig1;
+static const double absSumEig1 = 67;
 static const double w0 = 2*absSumEig1; // accélération facteur 2000
-static const double xi = pow(1/2, 0.5);
+static const double xi = pow(1.0/2.0, 0.5);
 
 // Gains
 static const double h1 = pow(w0, 2)/Qs/alpha;
 static const double h2 = 1/alpha*(-2*xi*w0/Qs + 2*k/rho);
 static const double h3 = h1;
-
-// Pas discret de temps
-static const double deltaT = 5e-3;
 
 // PD approximé
 static const double Tds = h2/h1;
@@ -103,7 +101,7 @@ static const double ns = 50; // à régler, augmente la sensibilité au bruit.
 //// Modèle de commande diff
 
 // réglage Contrôleur Idéal, PD sur phid, P sur cLF
-static const double sigma = 3; // à régler, réponse très lente.
+static const double sigma = 10; // à régler, réponse très lente.
 // Gains
 static const double k1 = 1/b2/etaConst*pow(sigma, 2)*pow(6, 0.5);
 static const double k2 = 1/b2/etaConst*(-sigma*pow(6, 0.5) - b1 + b2*k*l/rho);
@@ -125,7 +123,7 @@ static const double deltaY = lLF / Nt;
 
 // PD capteur de ligne
 static const double kcLF = 200; // Paramètres expérience vendredi 10/11 : kcLF = 55
-static const double epsiloncLF = 1.0/200.0;
-static const double kcLFDot = 15;
+static const double epsiloncLF = 1.0/100.0;
+static const double kcLFDot = 20;
 
 #endif

@@ -21,7 +21,7 @@ namespace controllers
 
     double udPDDifApprox(double deltaPhidDot, double deltaECurrent);
 
-    double udPLF(double deltacLFCurrent);
+    //double udPLF(double deltacLFCurrent);
 }
 
 #endif

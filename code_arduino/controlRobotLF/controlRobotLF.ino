@@ -18,7 +18,7 @@
 // Define the Multiplexer pins corresponding to each encoder
 QWIICMUX multiplexer;
 #define LEFT_ENCODER_PIN 3
-#define RIGHT_ENCODER_PIN 2
+#define RIGHT_ENCODER_PIN 4
 AS5600 rightEncoder, leftEncoder;
 // Set sensorbar communication
 #define SENSORBAR_PORT 0
@@ -61,6 +61,11 @@ double DeltaPhiDifDot;
 
 double deltacLF;
 double deltacLFDot;
+double deltacLFIntegral;
+double deltacLFPrevious;
+
+//double kcLF;
+//double kcLFDot;
 
 double USum;
 double UDif;
@@ -69,6 +74,7 @@ double Ur;
 double Ul;
 
 double time;
+double timer;
 
 
 void setup()
@@ -78,20 +84,22 @@ void setup()
     // 1000000.
     Serial.begin(230400);
 
+    /*
     // Initialize telemetry
     unsigned int const nVariables = 2;
     String variableNames[nVariables] = {"deltacLF", "filtered deltacLF derivative"};
-    
     mecatro::initTelemetry(nVariables, variableNames);
+    */
+
     // Start I2C communication
     Wire.begin();
     // Set I2C clock speed to 400kHz (fast mode)
     Wire.setClock(400000);
 
     bool isMultipInit = false;
-    if (!multiplexer.begin())
+    if (!multiplexer.begin()) //!multiplexer.begin()
     {
-        // Serial.println("Error: I2C multiplexer not found. Check wiring.");
+        Serial.println("Error: I2C multiplexer not found. Check wiring.");
     }
     else
     {
@@ -101,7 +109,7 @@ void setup()
         rightEncoder.begin();
         if (!rightEncoder.isConnected())
         {
-        //Serial.println("Error: could not connect to right encoder. Check wiring.");
+        Serial.println("Error: could not connect to right encoder. Check wiring.");
         isMultipInit = false;
         }
         //Set multiplexer to use port LEFT_ENCODER_PIN to talk to left encoder.
@@ -109,9 +117,10 @@ void setup()
         leftEncoder.begin();
         if (!leftEncoder.isConnected())
         {
-        //Serial.println("Error: could not connect to left encoder. Check wiring.");
+        Serial.println("Error: could not connect to left encoder. Check wiring.");
         isMultipInit = false;
         }
+      
     }
     multiplexer.setPort(SENSORBAR_PORT);
     //Default: the IR will only be turned on during reads.
@@ -128,21 +137,23 @@ void setup()
     uint8_t isSensorInit = mySensorBar.begin();
     if(isSensorInit)
     {
-        //Serial.println("sx1509 IC communication OK");
+        Serial.println("sx1509 IC communication OK");
     }
     else
     {
-        //Serial.println("sx1509 IC communication FAILED!");
+        Serial.println("sx1509 IC communication FAILED!");
     }
-    //Serial.println();
+    Serial.println();
 
     // If Multip and Sensorbar are init, we configure Arduino
     if (isMultipInit && isSensorInit)
         {
+          /*
         phiLBar = leftEncoder.rawAngle() * AS5600_RAW_TO_DEGREES;
         phiRBar = rightEncoder.rawAngle() * AS5600_RAW_TO_DEGREES;
         phiSBar = phiLBar + phiRBar;
         phiDBar = phiRBar - phiLBar;
+        */
         // Configure motor control and feedback loop call.
         mecatro::configureArduino(CONTROL_LOOP_PERIOD);
 
@@ -150,7 +161,7 @@ void setup()
         }
 
     // Initialize LED (for error logging)
-    pinMode(LED_BUILTIN, OUTPUT);
+    //pinMode(LED_BUILTIN, OUTPUT);
 
     // Initialize previous variables for filtered derivatives
     Ur = Urbar;
@@ -174,28 +185,31 @@ void loop()
 void mecatro::controlLoop()
 {
     // Retrieve position to line
-    if( mySensorBar.getDensity() < 1 )
-    // Line is not dark enough
-    {
+    
       // Robot stops
-      mecatro::setMotorDutyCycle(0.0, 0.0);
+      //mecatro::setMotorDutyCycle(0.0, 0.0);
       /*
       if (deltacLF > 0) {
         // Line is at left of robot
-        mecatro::setMotorDutyCycle(USum/4, -1.0);
+        mecatro::setMotorDutyCycle(0.1, -1.0);
       }
       else {
         // Line is at right of robot
-        mecatro::setMotorDutyCycle(1.0, -USum/4);
+        mecatro::setMotorDutyCycle(1.0, -0.1);
       }
       Serial.println("Density < 1");
       */
-    }
-    else{
+
+      /*
+        // update previous variables
+        DeltaPhiSumPrevious = DeltaPhiSumCurrent;
+        DeltaPhiDifPrevious = DeltaPhiDifCurrent;
+        etaSumPrevious = etaSumCurrent;
+        etaDifPrevious = etaDifCurrent;
 
         // Retrieve Angular Datas
         // Set multiplexer to use port LEFT_ENCODER_PIN to talk to left encoder.
-        /*
+
         multiplexer.setPort(LEFT_ENCODER_PIN);
         phiLCurrent = leftEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
 
@@ -204,7 +218,7 @@ void mecatro::controlLoop()
         phiRCurrent = rightEncoder.getCumulativePosition() * AS5600_RAW_TO_DEGREES;
 
         // Conversion into delta with ref in Sum,Diff base
-        time = micros() / 1e6;
+        time = micros() * 1e-6;
         DeltaPhiSumCurrent = phiRCurrent + phiLCurrent - (phiSBar + controllers::phiSumRef(time));
         DeltaPhiDifCurrent = phiRCurrent - phiLCurrent - phiLBar;
         */
@@ -214,38 +228,68 @@ void mecatro::controlLoop()
         cLFPrevious = cLFCurrent;
         cLFCurrent = positionTocLF(position);
         deltacLF = cLFCurrent - cLFRef; 
+        deltacLFPrevious = cLFPrevious - cLFRef;
 
         /*
         etaSumCurrent = derivative::getFilteredDerivative(etaSumPrevious, DeltaPhiSumCurrent, DeltaPhiSumPrevious, 1/ns, deltaT);
-        DeltaPhiSumDot = controllers::etaToDerivative(etaSumCurrent, DeltaPhiSumCurrent, 1/ns);
-        USum = Usbar - h1 * DeltaPhiSumCurrent - h2* DeltaPhiSumDot; // PD controller
+        DeltaPhiSumDot = derivative::etaToDerivative(etaSumCurrent, DeltaPhiSumCurrent, 1/ns);
+        USum = Usbar + h1 * DeltaPhiSumCurrent + h2* DeltaPhiSumDot; // PD controller
         */
+        
+
         //Serial.println(DeltaPhiSumCurrent);
         //Serial.println(etaSumCurrent);
         //Serial.println(DeltaPhiSumDot);
+        
+        /*
         etaDifPrevious = etaDifCurrent;
         etaDifCurrent = derivative::getFilteredDerivative(etaDifPrevious, cLFCurrent, cLFPrevious, epsiloncLF, deltaT);
         deltacLFDot = derivative::etaToDerivative(etaDifCurrent, deltacLF, epsiloncLF);
+        */
+
+        deltacLFDot = derivative::getDerivative(deltacLFPrevious, deltacLF, deltaT);
+        
+        if ( (deltacLF > 0.02) || (deltacLF < -0.02)) {
+          USum = 14;
+          Serial.println("Dans un virage");
+        }
+        else {
+          USum = 21;
+          Serial.println("*");
+        }
+
         UDif = kcLF*deltacLF + kcLFDot*deltacLFDot; // PD controller
-        USum = 16;
+        
         // Convert into right, left base
         Ur = 0.5*(USum + UDif);
         Ul = 0.5*(USum - UDif);
+        
+        Serial.print(Ur);
+        Serial.print("  ");
+        Serial.print(Ul);
+        Serial.println();
+        
 
         // Update motor orders
         // Assuming max voltage is 12V and that motordutycycle is proportional to voltage
-        mecatro::log(0, deltacLF);
-        mecatro::log(1, deltacLFDot);
+        //mecatro::log(0, deltacLF);
+        //mecatro::log(1, deltacLFDot);
+        
+        mecatro::setMotorDutyCycle(Ur/Umax, -Ul/Umax); //minus sign is because of the wiring
 
-        mecatro::setMotorDutyCycle(Ur/Umax, -Ul/Umax); // minus sign is because of the wiring
+        // Check if line is still detected
+        /*
+        if( mySensorBar.getDensity() < 1 )
+        // Line is not dark enough
+        {
+          mecatro::setMotorDutyCycle(0, 0);
+        }
+        else{
+          mecatro::setMotorDutyCycle(Ur/Umax, -Ul/Umax);
+        }
+        */
 
-        // update previous variables
-        DeltaPhiSumPrevious = DeltaPhiSumCurrent;
-        DeltaPhiDifPrevious = DeltaPhiDifCurrent;
-        etaSumPrevious = etaSumCurrent;
-        etaDifPrevious = etaDifCurrent;
-    }
-
+        
 
 }
 
@@ -255,3 +299,17 @@ double positionTocLF(double position){
     return cLF;
 }
 
+/* Verified parameters :
+- USum = 14
+- kcLF = 200
+- epsiloncLF = 1.0/100.0
+- kcLFDot = 20
+
+
+Verified parameters with different Usum :
+- USum (ligne droite) = 21; USum (virage) = 14
+- Seuil de virage : |deltacLF| > 0.02
+- kcLF = 200
+- kcLFDot = 20
+- (delta T = 5e-3)
+*/
