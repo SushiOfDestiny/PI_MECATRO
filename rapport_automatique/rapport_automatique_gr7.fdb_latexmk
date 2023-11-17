@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber rapport_automatique_gr7"] 0 "rapport_automatique_gr7.bcf" "rapport_automatique_gr7.bbl" "rapport_automatique_gr7" 1699888508 -1
+["biber rapport_automatique_gr7"] 1700055982 "rapport_automatique_gr7.bcf" "rapport_automatique_gr7.bbl" "rapport_automatique_gr7" 1700056537 0
   "bibliography.bib" 0 -1 0 ""
-  "rapport_automatique_gr7.bcf" 1699888508 107353 5126ec284b7cb1b18cd2d41da2972233 "pdflatex"
+  "rapport_automatique_gr7.bcf" 1700056537 107353 5126ec284b7cb1b18cd2d41da2972233 "pdflatex"
   (generated)
   "rapport_automatique_gr7.bbl"
   "rapport_automatique_gr7.blg"
   (rewritten before read)
-["pdflatex"] 1699888505 "e:/DOSSIERS PERSOS/ETUDES/ecoles_ingenieurs/mines paris/formation/2A/MECATRO/code/rapport_automatique/rapport_automatique_gr7.tex" "rapport_automatique_gr7.pdf" "rapport_automatique_gr7" 1699888508 0
+["pdflatex"] 1700056534 "e:/DOSSIERS PERSOS/ETUDES/ecoles_ingenieurs/mines paris/formation/2A/MECATRO/code/rapport_automatique/rapport_automatique_gr7.tex" "rapport_automatique_gr7.pdf" "rapport_automatique_gr7" 1700056537 0
   "C:/Users/Jules/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1699861949 83500 220a959d20f7a2db580fa7e4282a0d80 ""
   "C:/Users/Jules/AppData/Local/MiKTeX/fonts/tfm/public/rsfs/rsfs10.tfm" 1691223385 688 37338d6ab346c2f1466b29e195316aa4 ""
   "C:/Users/Jules/AppData/Local/MiKTeX/fonts/tfm/public/rsfs/rsfs5.tfm" 1691223389 684 3a51bd4fd9600428d5264cf25f04bb9a ""
@@ -35,6 +35,7 @@
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/tfm/public/pxfonts/rpxpplri.tfm" 977316540 2728 4b4b6637cf36958d09a5c0783164477e ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/tfm/public/pxfonts/rpxr.tfm" 977316540 1044 f70cfa4bf09ff6eb95520515850796cf ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/pxex.pfb" 977316540 18964 e01e97f07816aeb524ad5d4384a80c12 ""
+  "C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/pxexa.pfb" 977316540 29811 5b17af293abeebd9698b4c11c9df4efd ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/pxsy.pfb" 977316540 20626 c292fe290cca6e2f2dfcae6644c2f432 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/rpcxr.pfb" 977316540 16316 4d08244d226e4fedda79ab2df045fbf7 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/rpxmi.pfb" 1231975860 14672 3ebf07b0dca23cd3f277dcca5042673e ""
@@ -88,6 +89,9 @@
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/biblatex/cbx/numeric.cbx" 1679055682 4629 cda468e8a0b1cfa0f61872e171037a4b ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/biblatex/lbx/english.lbx" 1679055682 39965 48ce9ce3350aba9457f1020b1deba5cf ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/blindtext/blindtext.sty" 1623002099 47295 de48b7f8ebf4b54709a2f6b2c7106dd5 ""
+  "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption.sty" 1678645786 55778 14d5c99aa26410e440820bb9ea5b8b3a ""
+  "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption3.sty" 1678645786 71836 1a735454ad10692452eb2f2fc37f3865 ""
+  "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/caption/subcaption.sty" 1678645786 12462 ecf33913ce1e8012075d24e1f47f0d9b ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1623003186 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/etoolbox/etoolbox.sty" 1601897756 46845 3b58f70c6e861a13d927bff09d35ecbc ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/float/float.sty" 1469023953 6916 16d2656a1984957e674b149555f1ea1d ""
@@ -140,16 +144,23 @@
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/tools/calc.sty" 1667242266 10214 de3e21cfc0eccc98ca7f8dac0ef263d2 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/tools/xspace.sty" 1667242266 4545 4c279ac9292a1be8afa9ab2f1d3299c2 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "e:/DOSSIERS PERSOS/ETUDES/ecoles_ingenieurs/mines paris/formation/2A/MECATRO/code/rapport_automatique/rapport_automatique_gr7.tex" 1699888501 10532 cc38da494d1b8e1730be99fae35e75e0 ""
+  "e:/DOSSIERS PERSOS/ETUDES/ecoles_ingenieurs/mines paris/formation/2A/MECATRO/code/rapport_automatique/rapport_automatique_gr7.tex" 1700056533 19415 8591e6135ea4bf172e2137f2d1a93d5a ""
   "figures/cLF_schema.jpg" 1699871539 47501 738e60c81ceb157d801eb487d469efa0 ""
   "figures/courbes-construc.png" 1699881559 95500 3ffc661f57579f16c588211d2644982d ""
+  "figures/eigSys.png" 1700038849 3150 c11486a30e2b9c2e93fe517d1d78c5b0 ""
+  "figures/eigSysDifOl.png" 1700038897 2278 0f906b466e745a4d14fa5ebeb7e99c4e ""
+  "figures/eigSysSumBF.png" 1700038910 2541 eb0e9b766753fa7decdf6ffa004f310e ""
+  "figures/eigSysSumBFApprox.png" 1700038913 3740 00cb058a0c74c20e3b4e0bbe165f7c6e ""
+  "figures/eigSysSumOl.png" 1700038890 2154 9ce735a28eb8d91e87fd629ca56e9eb8 ""
   "figures/inertie_roue.png" 1699869699 77112 4ab9f95bc8dac5613188a7d4eb5d6838 ""
-  "rapport_automatique_gr7.aux" 1699888508 3253 5da8f9dd2be02b96a37863ee438e6888 "pdflatex"
+  "figures/repfreqsumbf_approx.jpg" 1700056365 187310 c88ec8dd6b46f3d2cbc2cfee682de013 ""
+  "figures/reptempsumbf_approx.jpg" 1700038702 57730 779867c6e7a00d8631b49ac5ee86092a ""
+  "rapport_automatique_gr7.aux" 1700056537 4918 4e29c510af860f2496fbd6ddbf59d553 "pdflatex"
   "rapport_automatique_gr7.bbl" 1699861988 0 d41d8cd98f00b204e9800998ecf8427e "biber rapport_automatique_gr7"
-  "rapport_automatique_gr7.out" 1699888508 830 4af34820879f807f9c0b242ea916f200 "pdflatex"
-  "rapport_automatique_gr7.run.xml" 1699888508 2440 e739705cc60dbd9708653fa675c40585 "pdflatex"
-  "rapport_automatique_gr7.tex" 1699888501 10532 cc38da494d1b8e1730be99fae35e75e0 ""
-  "rapport_automatique_gr7.toc" 1699888508 1077 60bb86b955b5a80c886edd2edd38c87b "pdflatex"
+  "rapport_automatique_gr7.out" 1700056537 830 4af34820879f807f9c0b242ea916f200 "pdflatex"
+  "rapport_automatique_gr7.run.xml" 1700056537 2440 e739705cc60dbd9708653fa675c40585 "pdflatex"
+  "rapport_automatique_gr7.tex" 1700056533 19415 8591e6135ea4bf172e2137f2d1a93d5a ""
+  "rapport_automatique_gr7.toc" 1700056537 1580 8afbea3aae44c874113843a0758bc0d0 "pdflatex"
   (generated)
   "rapport_automatique_gr7.aux"
   "rapport_automatique_gr7.bcf"

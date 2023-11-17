@@ -18,6 +18,8 @@
 \usepackage{mathtools}
 
 \usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{float}
 
 \usepackage[parfill]{parskip}
@@ -54,7 +56,7 @@ implémenté informatiquement en Arduino afin d'être embarqué dans le robot.
 \paragraph{Contrôle d'un mouvement rectiligne uniforme}
 
 En reprenant les notations et la modélisation du document "Equations de la dynamique du Segway",
-les équations de la dynamique sous forme d'état sont:
+les équations de la dynamique sous forme d'état sont (on négligera toutes les perturbations):
 
 \begin{equation*}
     \begin{cases}
@@ -93,8 +95,8 @@ Où on a défini:
     \item $U^{-} = U_{right} - U_{left}$ la différence des tensions.
     \item $\beta = M + \frac{2I^{w}_{y}}{\rho^2}$
     \item $\gamma = I_{\psi} + m_bd^2$
-    \item $\delta \delta \phi^{+}$ la somme des angles des roues. Posons $\alpha = \frac{2}{\rho}$.
-    \item $\delta \delta \phi^{-}$ la différence des angles des roues. Posons  $\eta = \frac{l}{\rho}$.
+    \item $\phi^{+}$ la somme des angles des roues. Posons $\alpha = \frac{2}{\rho}$.
+    \item $\phi^{-}$ la différence des angles des roues. Posons  $\eta = \frac{l}{\rho}$.
     \item $c_{LF}$ la mesure de l'écart entre le point A et la ligne (approximation en MRU horizontal).
 \end{itemize}
 
@@ -156,16 +158,23 @@ Ce qui donne comme trajectoire d'équilibre
     \end{cases}
 \end{equation*}
 
+\begin{figure}[h]  % Placement "here"
+    \centering
+    \includegraphics[width=0.2\textwidth]{figures/eigSys.png}
+    \caption{Valeurs propres du système linéarisé.}
+\end{figure}
+
+Les valeurs propres obtenus sont négatives. Celles qui sont nulles sont
+dûes au fait que certaines variables d'état sont redondantes: $p$, $y$,
+donc le système reste stable.
+
+% Il est étrange que les 2 valeurs propres rapides soient différentes, car
+% celles de $I_l, I_r$ sont égales et que le changement en $I^+,I^-$.
+
 \paragraph{Simplifications par perturbations singulières}
 
 Les intensités de courant ont un transitoire bien plus rapide que
 ceux des grandeurs mécaniques (leurs valeurs propres $\frac{R}{L}$ sont bien supérieures aux autres).
-
-\begin{figure}[h]  % Placement "here"
-    \centering
-    \includegraphics[width=0.5\textwidth]{figures/cLF_schema.jpg}
-    \caption{Valeurs propres du système modélisé dans Matlab}
-\end{figure}
 
 On applique la méthode des perturbations singulières à:
 \begin{equation*}
@@ -198,7 +207,7 @@ On vérifie la stabilité uniformément exponentielle de la branche d'équilibre
     = -\frac{R}{L}
     \begin{pmatrix}
         1 & 0 \\
-        1 & 0
+        0 & 1
     \end{pmatrix}
 \end{equation*}
 
@@ -208,17 +217,271 @@ La branche a donc comme valeurs propres des réels négatifs, donc est ue-stable
 
 \begin{equation*}
     \begin{cases}
-        \dot{p} = u \\
-        \dot{u} = \frac{1}{\beta}\big( \frac{1}{\rho}kI^{+} - m_bdv^2 \big) \\
-        \dot{\psi} = v \\
-        \dot{v} = \frac{1}{\gamma}\big( \frac{lk}{2\rho}I^{-} + m_bduv \big) \\
-        \dot{I^{+}} = \frac{U^{+}}{L} - \frac{R}{L}I^{+} - \frac{2k}{L\rho}u \\
-        \dot{I^{-}} = \frac{U^{-}}{L} - \frac{R}{L}I^{-} - \frac{kl}{L\rho}v \\
-        \dot{y} = u\sin\psi \\
+        \delta{\dot p} = \delta u \\
+        \delta{\dot u} = \underbrace{\frac{1}{\beta}\frac{k}{\rho}\frac{1}{R}}_{Q} \big( \delta U^+ - \frac{2k}{\rho}\delta u \big)\\
+        \delta{\dot \psi} = \delta v \\
+        \delta{\dot v} = \underbrace{\frac{1}{\gamma} m_bd u_0}_{b_1} \delta v + 
+        \underbrace{\frac{1}{\gamma}\frac{lk}{2\rho}\frac{1}{R}}_{b_2}\big( \delta U^- - \frac{lk}{\rho}\delta v \big) \\
+        \dot{y} = u_0\delta \psi        
     \end{cases}
 \end{equation*}
 
 
+\paragraph{Découplage en sous-système "Sum" et "Dif"}
+
+On peut séparer le système global en 2 sous-systèmes indépendants.
+Le premier, appelé "Sum", régit la dynamique du bolide
+en ligne droite:
+
+\begin{equation*}
+    \text{Etat}
+    \begin{cases}
+        \delta{\dot p} = \delta u \\
+        \delta{\dot u} = Q\big( \delta U^+ - \frac{2k}{\rho}\delta u \big)\\
+    \end{cases}
+    \text{Sorties}
+    \begin{cases}
+        \delta y_m^+ = \delta \phi^+        
+    \end{cases}
+\end{equation*}
+
+Le second, appelé "Dif", régit la dynamique du bolide dans les virages:
+
+\begin{equation*}
+    \text{Etat}
+    \begin{cases}
+        \delta{\dot \psi} = \delta v \\
+        \delta{\dot v} = b_1\delta v + b_2\big( \delta U^- - \frac{lk}{\rho}\delta v \big) \\
+        \dot{y} = u_0\delta \psi        
+    \end{cases}
+    \text{Sorties}
+    \begin{cases}
+        \delta y_m^- = \delta \phi^- \\ 
+        \delta c_{LF} = \delta y  
+    \end{cases}
+\end{equation*}
+
+On obtient les valeurs propres suivantes:
+
+\begin{figure}[h]  % Placement "here"
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.2\textwidth]{figures/eigSysSumOl.png}        
+      \end{subfigure}    
+      \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.2\textwidth]{figures/eigSysDifOl.png}
+      \end{subfigure}    
+      \caption{Valeurs propres des sous-systèmes linéarisés. 
+      Environ égales aux plus lentes du linéarisé global.}
+\end{figure}
+
+\paragraph{Modélisation du contrôleur du sous-système "Sum"}
+
+L'état étant de dimension 2, notre choix s'est porté sur un Proportionnel
+- Dérivé permettant de contrôler $U^+$ avec $\phi^+$:
+
+\begin{equation*}
+    \delta{U^+} = h_1(\delta \phi^+_r - \delta \phi^+) 
+    - h_2(\delta \dot{\phi}^+_r - \delta \dot{\phi}^+) \\     
+    =h_1\alpha( \delta p_r - \delta p) 
+    - h_2\alpha( \delta u_r - \delta u)
+\end{equation*}
+\begin{equation*}
+    \text{En Laplace: }
+    \underline{U^+} = \frac{-h_2s + h_1}{1}
+    (\underline{\phi^+_r} -\underline{\phi^+})
+\end{equation*}
+
+Pour ajuster le comportement de notre système en boucle fermée, nous 
+imposons le polynôme caractéristique de $A^+ = \partial_{\underline{x}^+} f$
+où $f^+$ est la fonction de la dynamique de l'état $\underline{x}^+$:
+\begin{equation*}
+    \chi_{A^+ \text{ désiré}} = s^2 + 2\xi\omega_0 s + \omega_0^2
+\end{equation*}
+
+Où l'amortissement $\xi$ et la pulsation propre $\omega_0$ sont à ajuster.
+
+En boucle fermée:
+
+\begin{equation*}
+    \begin{pmatrix}
+        \delta{\dot p} \\
+        \delta{\dot u} \\
+    \end{pmatrix}
+    =
+    \underbrace{
+    \begin{pmatrix}
+        0 & 1 \\
+        \underbrace{-Q\alpha h_1}_{a_1} & +\underbrace{Q(\alpha h_2 - \frac{2k}{\rho}}_{a_2})
+    \end{pmatrix}
+    }_{A^+}
+    \begin{pmatrix}
+        \delta{p} \\
+        \delta{u} \\
+    \end{pmatrix}
+    +
+    \begin{pmatrix}
+        0 & 0 \\
+        Q\alpha h_1 & -Q\alpha h_2
+    \end{pmatrix}
+    \begin{pmatrix}
+        \delta{p_r} \\
+        \delta{u_r} \\
+    \end{pmatrix}
+    \Rightarrow
+    \chi_{A^+} = s^2 - a_2 - a_1
+\end{equation*}
+
+
+\begin{equation*}
+    \text{Identification}
+    \begin{cases}
+        -a_2=2\xi \omega_2 \\
+        -a_1 = \omega_0^2
+    \end{cases}
+    \Leftrightarrow
+    \begin{cases}
+        h_2 = \frac{1}{\alpha}\big( \frac{2\xi\omega_0}{-Q}+\frac{2k}{\rho})\\
+        h_1 = \frac{\omega_0^2}{Q\alpha}
+    \end{cases}
+\end{equation*}
+
+\paragraph{Modélisation du contrôleur du sous-système "Dif"}
+Pour contrôler l'état de dimension 3, on a choisit un Proportionnel - Dérivé
+sur la différence des angles cumulés $\phi^-$ 
+et un proportionnel sur l'écart à la ligne $c_{LF}$ pour contrôler $U^-$:
+
+\begin{equation*}
+    \delta U^- = k_1(\delta \phi^-_r - \delta \phi^-)
+    - k_2(\delta \dot{\phi}^-_r - \delta \dot{\phi}^-)
+    + k_5(\delta c_{LFr} - \delta c_{LF}) \\
+    = k_1 \eta(\delta \psi_r - \delta \psi^-)
+    - k_2 \eta(\delta \dot{\psi}_r - \delta \dot{\psi}^-)
+    + k_5(\delta y_r - \delta y) \\
+\end{equation*}
+\begin{equation*}
+    \text{En Laplace: }
+    \underline{U^-} = \frac{-k_2s + k_1}{1}
+    (\underline{\phi}^-_r - \underline{\phi}^-)
+    + \frac{k_5}{1}
+    (\underline{c_{LFr}} - \underline{c_{LF}})    
+\end{equation*}
+
+Pour ajuster le comportement de notre système en boucle fermée, nous 
+imposons:
+\begin{equation*}
+    \chi_{A^- \text{ désiré}} = s^3 + \sigma\sqrt{6}s^2 
+    + \sigma^2\sqrt{6}s + \sigma^3 
+\end{equation*}
+
+En boucle fermée:
+
+\begin{equation*}
+    \begin{cases}
+        \delta \dot{\psi} = \delta v \\
+        \delta \dot{v} = \underbrace{-k_1b_2\eta\delta}_{c_1} \psi + 
+        \underbrace{\big(b_1 + b_2k_2\eta - \frac{b_2kl}{\rho} \big)}_{c_2}\delta v 
+        \underbrace{- b_2k_5}_{c_3} \delta y
+    \end{cases}
+\end{equation*}
+
+On a
+
+\begin{equation*}
+    A^-=
+    \begin{pmatrix}
+        0 & 1 & 0 \\
+        c_1 & c_2 & c_3 \\
+        u_0 & 0 & 0 \\
+    \end{pmatrix}
+\end{equation*}
+ On identifie
+ \begin{equation*}
+    \chi_{A^-} = s^3 - c_2s - c_1s - u_0c_3
+    = s^3 + \sigma\sqrt{6}s^2 
+    + \sigma^2\sqrt{6}s + \sigma^3 \\    
+ \end{equation*}
+ \begin{equation*}
+    \Leftrightarrow
+    \begin{cases}
+        k_1 = \frac{1}{b_2\eta}\sigma^2\sqrt{6}  \\
+        k_2 = \frac{1}{b_2\eta}\big(-\sigma\sqrt{6} - b_1 + b_2\frac{kl}{\rho} \big) \\
+        k_5 = \frac{\sigma^3}{u_0b_3}  
+    \end{cases}
+ \end{equation*}
+
+\paragraph{Approximation des contrôleurs avec des dérivées filtrées}
+
+Pour le sous-système "Sum", le contrôleur en dérivée filtrée s'écrit:
+
+\begin{equation*}
+    \begin{cases}
+        \dot{\eta} = \frac{\Delta \phi^+ - \eta}{\varepsilon}
+        =  n_s\big(\Delta \phi^+ - \eta \big) 
+        \text{ où } \Delta \phi^+ = \delta \phi^+_r - \delta \phi^+
+        \text{ et } n_s = \frac{1}{\varepsilon} \\
+        \delta{U^+} = h_1(1 - T_{ds}n_s)\Delta \phi^+ +
+        h_1T_{ds}n_s\eta \text{ où } T_{ds} = \frac{h_2}{h_1} 
+    \end{cases}
+\end{equation*}
+
+De même pour le sous-système "Dif":
+
+\begin{equation*}
+    \begin{cases}
+        \dot{\eta} = \frac{\Delta \phi^- - \eta}{\varepsilon}
+        =  n_d\big(\Delta \phi^- - \eta \big) 
+        \text{ où } \Delta \phi^- = \delta \phi^-_r - \delta \phi^-
+        \text{ et } n_d = \frac{1}{\varepsilon} \\
+        \delta{U^-} = k_1(1 - T_{dd}n_d)\Delta \phi^- +
+        k_1T_{dd}n_d\eta + k_5 \Delta c_{LF}\text{ où } T_{dd} = \frac{k_2}{k_1} \text{ et }
+        \Delta c_{LF} = \delta c_{LFr} - \delta c_{LF}
+    \end{cases}
+\end{equation*}
+
+\paragraph{Réponses fréquentielles des systèmes fermés modélisés 
+en Matlab}
+
+Pour le système "Sum", nous ne voulions pas trop accélérer la dynamique,
+ainsi nous avons pris $\omega_0 = |\lambda^+|$ la valeur propre du système,
+et l'amortissement $\xi = \frac{1}{\sqrt{2}}$, afin d'avoir en boucle fermée
+(avec $n_s=150$):
+
+\begin{figure}[h]  % Placement "here"
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{figures/eigSysSumBF.png}        
+      \end{subfigure}    
+      \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{figures/eigSysSumBFApprox.png}
+      \end{subfigure}    
+      \caption{Valeurs propres de "Sum" avec contrôleur PD, 
+      (gauche: contrôleur idéal, droite: dérivée filtrée).
+      Elles sont inférieures à celles en boucle ouverte.}
+\end{figure}
+
+
+\begin{figure}[h]  % Placement "here"
+    \begin{subfigure}{.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/reptempsumbf_approx.jpg}        
+      \end{subfigure}    
+      \begin{subfigure}{.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/repfreqsumbf_approx.jpg}
+      \end{subfigure}    
+      \caption{Réponses temporelles et fréquentielles 
+      du système "Sum" contrôlé.
+      Avec le contrôleur avec dérivée filtrée, la 
+      réponse oscille un peu et est en retard.
+      La réponse sur $u$ à une marge de phase de 180° et une 
+      marge de gain infinie ce qui est satisfaisant.}
+\end{figure}
+
+Pour le sous-système "Dif", nous avons accéléré la dynamique avec
+$\sigma = 15$
 
 \chapter{Identification des paramètres physiques}
 
@@ -237,7 +500,8 @@ Les équations électriques à l'équilibre s'écrivent
     \end{cases}
 \end{equation*}
 
-En se plaçant sans couple, donc sans courant, et en utilisant les courbes constructeurs, on calcule
+En se plaçant sans couple, donc sans courant, 
+et en utilisant les courbes constructeurs, on calcule
 $k=\frac{U}{\Omega} \, V/(rad.s^-1)$.
 
 \begin{figure}[h]  % Placement "here"
