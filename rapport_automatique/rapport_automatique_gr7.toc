@@ -16,3 +16,6 @@
 \contentsline {paragraph}{Estimation des moments d'inertie}{9}{section*.20}%
 \contentsline {paragraph}{Estimation des constantes électriques}{10}{section*.22}%
 \contentsline {chapter}{\numberline {4}Implémentation du contrôleur en Arduino}{11}{chapter.4}%
+\contentsline {paragraph}{Structure}{11}{section*.23}%
+\contentsline {paragraph}{Contrôle de l'écart à la ligne}{11}{section*.24}%
+\contentsline {paragraph}{Contrôle de la vitesse en translation}{11}{section*.25}%
