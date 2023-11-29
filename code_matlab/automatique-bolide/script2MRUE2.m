@@ -8,7 +8,7 @@ format short g
 %% Paramètres du Système
 % Masses
 mw=0.06;
-mb=0.92;
+mb=0.894;
 Ms=mb + 2*mw;
 
 % Distances
@@ -28,7 +28,7 @@ k=0.347;
 
 % Moments inertie A TROUVER
 Iwy=1.6e-4;
-Ipsi=3.59e-2;
+Ipsi=3.12e-2;
 
 % Constantes utilitaires
 beta = (Ms + 2*Iwy/rho^2);
@@ -41,7 +41,7 @@ eta = l/rho;
 % On néglige les perturbations sur les entrées et les mesures.
 
 % Commandes, Références
-ur = 0.5; %m/s
+ur = 0.3; %m/s
 psir = 0;
 
 % On fait le changement right,left (r,l) -> sum,dif (s,d)
@@ -103,7 +103,7 @@ D = zeros(3,2);
 sys = ss(A,B,C,D);
 set(sys,'InputName',{'dUs','dUd'},'OutputName',{'dphis','dphid','dcLF'});
 
-figure(1), step(sys), grid
+% figure(1), step(sys), grid
 % phis augmente exponentiellement
 
 sort(eig(A)) % 2 vp très rapides => simplification par perturbations singulières
@@ -130,7 +130,7 @@ DSum = [0];
 sysSum = augstate(ss(ASum,BSum,CSum,DSum)); % Ajout de l'état à la sortie
 set(sysSum,'InputName',{'dUs'},'OutputName',{'dphis','dp','du'});
 
-figure(2), step(sysSum), grid
+% figure(2), step(sysSum), grid
 % Vitesse constante, p est une droite
 
 %% Sous-système Lent Différence
@@ -163,7 +163,6 @@ figure(3), step(sysDif), grid
 
 %% Les vp des sous-systèmes sont les vp du système lent complet
 eigSys=sort(eig(A)) 
-fastEig
 eigSysSumOl = sort(eig(ASum))
 eigSysDifOl = sort(eig(ADif))
 
@@ -171,7 +170,7 @@ eigSysDifOl = sort(eig(ADif))
 sumEig = sort(eig(ASum));
 
 % réglage PD idéal
-w0 = 1*abs(sumEig(1)); % accélération facteur 2000
+w0 = 1*abs(sumEig(1));
 xi = 1/sqrt(2);
 % Gains
 h1 = w0^2/Qs/alpha;
@@ -188,7 +187,7 @@ set(PDsum,'InputName',{'dphisr','dphis'},'OutputName',{'dUs'})
 
 % PD approximé
 Tds = h2/h1;
-ns = 50; % à régler, augmente la sensibilité au bruit.
+ns = 150; % à régler, augmente la sensibilité au bruit.
 
 Ms = -ns;
 Ns = [ns -ns];
@@ -210,7 +209,6 @@ eigSysSumBF = eig(sysSumBF) % ce qu'on a
 sysSumBFApprox = lft(PDsumApprox,sysSum,1,1);
 eigSysSumBFApprox = eig(sysSumBFApprox)
 sumEigDesired % ce qu'on voulait
-fastEig
 % Les 2 sont << vp de Is donc hypothèse des perturbations singulières
 % respectée
 
@@ -251,7 +249,7 @@ set(PDdif,'InputName',{'dphidr','dcLFr','dphid','dcLF'},'OutputName', ...
 
 % PD+P approximé
 Tdd = k2/k1;
-nd = 50;
+nd = 90;
 
 Md = -nd;
 Nd = [nd 0 -nd 0];
@@ -271,7 +269,6 @@ eigSysDifBF = eig(sysDifBF) % ce qu'on a
 sysDifBFApprox = lft(PDdifApprox,sysDif,2,1);
 eigSysDifBFApprox = eig(sysDifBFApprox)
 difEigDesired % ce qu'on voulait
-fastEig
 % Les vp sont << vp de Id donc hypothèse des perturbations singulières
 % respectée
 

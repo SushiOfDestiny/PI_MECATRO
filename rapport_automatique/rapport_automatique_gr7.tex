@@ -51,11 +51,16 @@ pour un robot "bolide" suiveur de ligne. Le contrôleur a d'abord été créé t
 dans le logiciel Matlab et testé sur un modèle de simulation Simulink, puis il a été
 implémenté informatiquement en Arduino afin d'être embarqué dans le robot.
 
+\nopagebreak
+
 \chapter{Création du contrôleur théorique}
 
 \paragraph{Contrôle d'un mouvement rectiligne uniforme}
 
-En reprenant les notations et la modélisation du document "Equations de la dynamique du Segway",
+Le mouvement du bolide auquel nous nous intéressons est rectiligne uniforme le long de l'axe $x$ du repère du laboratoire.
+Nous avons espoir qu'il approxime suffisamment la dynamique locale du robot par rapport à la courbe à suivre, on
+verra par la suite que cela est confirmé.
+En reprenant les notations et la modélisation du document `Equations de la dynamique du Segway',
 les équations de la dynamique sous forme d'état sont (on négligera toutes les perturbations):
 
 \begin{equation*}
@@ -76,8 +81,8 @@ Les sorties mesurées sont:
 
 \begin{equation*}
     \begin{cases}
-        \delta \delta \phi^{+} = \delta \phi_{right} + \delta \phi_{left} = \frac{2}{\rho}p \\
-        \delta \delta \phi^{-} = \delta \phi_{right} + \delta \phi_{left} = \frac{l}{\rho}\psi \\
+        \delta  \phi^{+} = \delta \phi_{right} + \delta \phi_{left} = \frac{2}{\rho}p \\
+        \delta  \phi^{-} = \delta \phi_{right} + \delta \phi_{left} = \frac{l}{\rho}\psi \\
         c_{LF} = \frac{y}{\cos\psi} \approx y \\
     \end{cases}
 \end{equation*}
@@ -89,7 +94,7 @@ Où on a défini:
     Celle-ci doit figurer dans l'état pour mesurer les angles cumulés.
     \item $u$ sa vitesse longitudinale.
     \item $\psi$ l'angle entre l'axe horizontal $x$ et la direction du robot.
-    \item $I^{-} = I_{right} - I_{left}$ la somme des courants des moteurs.
+    \item $I^{+} = I_{right} + I_{left}$ la somme des courants des moteurs.
     \item $I^{-} = I_{right} - I_{left}$ la différence des courants.
     \item $U^{+} = U_{right} + U_{left}$ la somme des tensions aux bornes des moteurs.
     \item $U^{-} = U_{right} - U_{left}$ la différence des tensions.
@@ -111,7 +116,8 @@ Où on a défini:
 \paragraph{Recherche des trajectoires d'équilibre}
 
 Notre trajectoire d'équilibre du mouvement rectiligne uniforme 
-est caractérisée par le système:
+est caractérisée par le système, avec $u_0$ 
+la vitesse longiline de commande:
 
 \begin{equation*}
     \begin{cases}
@@ -166,7 +172,7 @@ Ce qui donne comme trajectoire d'équilibre
 
 Les valeurs propres obtenus sont négatives. Celles qui sont nulles sont
 dûes au fait que certaines variables d'état sont redondantes: $p$, $y$,
-donc le système reste stable.
+donc le système est quand même stable.
 
 % Il est étrange que les 2 valeurs propres rapides soient différentes, car
 % celles de $I_l, I_r$ sont égales et que le changement en $I^+,I^-$.
@@ -266,11 +272,11 @@ On obtient les valeurs propres suivantes:
 \begin{figure}[h]  % Placement "here"
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=0.2\textwidth]{figures/eigSysSumOl.png}        
+        \includegraphics[width=0.6\textwidth]{figures/eigSysSumOl.png}        
       \end{subfigure}    
       \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=0.2\textwidth]{figures/eigSysDifOl.png}
+        \includegraphics[width=0.6\textwidth]{figures/eigSysDifOl.png}
       \end{subfigure}    
       \caption{Valeurs propres des sous-systèmes linéarisés. 
       Environ égales aux plus lentes du linéarisé global.}
@@ -337,7 +343,7 @@ En boucle fermée:
 \begin{equation*}
     \text{Identification}
     \begin{cases}
-        -a_2=2\xi \omega_2 \\
+        -a_2=2\xi \omega_0 \\
         -a_1 = \omega_0^2
     \end{cases}
     \Leftrightarrow
@@ -413,6 +419,11 @@ On a
 
 \paragraph{Approximation des contrôleurs avec des dérivées filtrées}
 
+L'utilisation de la dérivée filtrée vient du fait que les capteurs
+angulaires mesurent seulement les angles et nous avons besoin de
+leur dérivée pour le contrôleur. Une simple approximation par la 
+tangente n'est pas suffisante car sensible au bruit de mesure.
+
 Pour le sous-système "Sum", le contrôleur en dérivée filtrée s'écrit:
 
 \begin{equation*}
@@ -444,7 +455,11 @@ De même pour le sous-système "Dif":
 en Matlab}
 
 Pour le système "Sum", nous ne voulions pas trop accélérer la dynamique,
-ainsi nous avons pris $\omega_0 = |\lambda^+|$ la valeur propre du système,
+il ne nous semblait pas essentielle d'avoir une réponse extrêmement
+rapide pour atteindre la vitesse de consigne, par rapport au
+suivi de la ligne, géré par l'autre contrôleur.
+Ainsi nous avons pris $\omega_0 = |\lambda^+|$ 
+valeur absolue de la valeur propre du système Sum,
 et l'amortissement $\xi = \frac{1}{\sqrt{2}}$, afin d'avoir en boucle fermée
 (avec $n_s=150$):
 
@@ -459,7 +474,9 @@ et l'amortissement $\xi = \frac{1}{\sqrt{2}}$, afin d'avoir en boucle fermée
       \end{subfigure}    
       \caption{Valeurs propres de "Sum" avec contrôleur PD, 
       (gauche: contrôleur idéal, droite: dérivée filtrée).
-      Elles sont inférieures à celles en boucle ouverte.}
+      Leurs valeurs absolues sont sensiblement égales à
+      celle en boucle ouverte.
+      Celle du filtre est plus grande.}
 \end{figure}
 
 
@@ -473,7 +490,7 @@ et l'amortissement $\xi = \frac{1}{\sqrt{2}}$, afin d'avoir en boucle fermée
         \includegraphics[width=\textwidth]{figures/repfreqsumbf_approx.jpg}
       \end{subfigure}    
       \caption{Réponses temporelles et fréquentielles 
-      du système "Sum" contrôlé.
+      du système "Sum" contrôlé (à un échelon de la somme des angles).
       Avec le contrôleur avec dérivée filtrée, la 
       réponse oscille un peu et est en retard.
       La réponse sur $u$ à une marge de phase de 180° et une 
@@ -481,7 +498,97 @@ et l'amortissement $\xi = \frac{1}{\sqrt{2}}$, afin d'avoir en boucle fermée
 \end{figure}
 
 Pour le sous-système "Dif", nous avons accéléré la dynamique avec
-$\sigma = 15$
+$\sigma = 15$ ($n_d=150$).
+
+\begin{figure}[h]  % Placement "here"
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{figures/eigSysDifBF.png}        
+      \end{subfigure}    
+      \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{figures/eigSysDifBFApprox2.png}
+      \end{subfigure}    
+      \caption{Valeurs propres de "Dif" avec contrôleur PD+P, 
+      (gauche: contrôleur idéal, droite: dérivée filtrée).
+      Leurs valeurs absolues sont sensiblement égales à celles en boucle ouverte, 
+      ce qui montre que la dynamique n'a pas vraiment été accélérée, et celles du sous-système
+      approché par la dérivée filtrée approximent assez bien celle du système
+      théorique en boucle fermée. 
+      La valeur propre du filtre est 7 fois plus rapide que les autres.}
+\end{figure}
+
+\begin{figure}[h]  % Placement "here"
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/reptempdifbf_approx.jpg}        
+      \end{subfigure}    
+      \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/repfreqdifbf_approx.jpg}
+      \end{subfigure}    
+      \caption{
+        Réponses temporelles et fréquentielles 
+      du système "Dif" contrôlé.
+      La réponse de $y$ après un échelon sur $cLF_r$ s'effectue 
+      sans oscillation ni dépassement en environ $0.6s$ ce qui est 
+      satisfaisant par rapport aux attentes de réactivité d'un bolide.
+      L'échelon sur la différence des angles n'est pas vraiment notable.
+      La marge de gain de la réponse de $y$ à un échelon de $\phi^-_r$
+      est de $60 dB$, et celle en phase est infinie.
+      Tandis que la marge de gain de la réponse de $y$ à 
+      un échelon de $cLF_r$ est de $16 dB$ (satisfaisant) et celle en phase est nulle, 
+      ce qui n'est pas satisfaisant.}
+\end{figure}
+
+\newpage
+
+\paragraph{Etude sur le système de simulation Matlab}
+
+Le fichier de Matlab s'intitule `plant2MRUEBF.slx'.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/sysSimulBF.png}
+    \caption{
+    Schéma du modèle Matlab de simulation contrôlé. 
+    Les pertubations de tension sont mises à zéro.
+    Un bloc de discrétisation est ajouté en fin de mesure du capteur
+    de ligne $cLF$.}
+\end{figure}
+
+Nous étudions la réponse en poursuite, ie le régime transitoire d'un
+état initial perturbé par un écart à la ligne de $\delta y = 3 \text{ cm}$.
+La vitesse consigne est $0.3 \text{ m/s}$.
+
+
+\begin{figure}[h]  % Placement "here"
+    \centering
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=0.7\textwidth]{figures/sysSimulBFrepInputs.png}        
+      \end{subfigure}   
+    \newline
+      \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/sysSimulBFrepOutputs.png}
+      \end{subfigure}    
+      \caption{
+    Tension aux bornes des moteurs (à gauche) 
+    et sorties mesurées (à droite), on note une oscillation notable
+    de la différence des tension, est une valeur presque constante 
+    de leur somme de $\approx 6V$. 
+    On observe d'autre part une rapide décroissance de la 
+    mesure du capteur, sans oscillation, jusqu'à une position proche de la position
+    d'équilibre, ce qui est satisfaisant.
+    En considérant cet écart statique, nous nous sommes demandés si cela présentait un
+    intérêt d'ajouter un terme intégral en $c_{LF}$ pour l'annuler.
+    Sachant que les mesures du capteur sont discrètes, nous avons préféré nous en passer,
+    car l'erreur de l'ordre du $mm$ est mesurée comme nulle sachant que la résolution
+    du capteur est $0.09 / 7 m >> 1 mm $. }
+\end{figure}
+
+
 
 \chapter{Identification des paramètres physiques}
 
@@ -506,7 +613,9 @@ $k=\frac{U}{\Omega} \, V/(rad.s^-1)$.
 
 \begin{figure}[h]  % Placement "here"
     \centering
-    \includegraphics[width=3cm]{figures/courbes-construc.png}
+    \includegraphics[width=9cm]{figures/courbes-construc.png}
+
+
     \caption{Courbes de fonctionnement fournies par Pololu.}
 \end{figure}
 
@@ -514,12 +623,14 @@ $k=\frac{U}{\Omega} \, V/(rad.s^-1)$.
 Toutes les pièces ont été pesées.
 
 On a approximé la masse de l'arbre moteur et du rotor à la différence
-entre la masse pesée du moteur, et celle donnée par la CAO.
+entre la masse pesée du moteur, et celle donnée par la CAO, car on a supposé que cette dernière 
+correspondait uniquement à la structure extérieure du moteur, ie au stator.
 
 \paragraph{Estimation des moments d'inertie}
 
 Pour le moment d'inertie de l'unité roue + engrenage + rotor, 
-notre première approche a été d'approximer la géométrie du système à celle d'un disque,
+notre première approche (et celle que nous avons gardée pour 
+les simulations) a été d'approximer la géométrie du système à celle d'un disque,
 et d'utiliser la matrice d'inertie (cellule D34 du GSheet):
 
 \begin{equation*}
@@ -534,27 +645,43 @@ et d'utiliser la matrice d'inertie (cellule D34 du GSheet):
 Comme autre approche, nous avons mesuré le temps de réponse de la 
 vitesse angulaire de la roue à un échelon de 12V aux bornes du moteur.
 Nous avons mesuré la sommes des positions angulaires, que nous avons filtrée 
-avec un filtre passe bas, en supposant que cela ne fausse pas sensiblement le 
+avec un filtre passe bas pour en obtenir une estimation de la 
+dérivée, en supposant que cela ne fausse pas sensiblement le 
 temps de réponse.
 
 \begin{figure}[h]  % Placement "here"
     \centering
-    \includegraphics[width=3cm]{figures/inertie_roue.png}
+    \includegraphics[width=15cm]{figures/inertie_roue.png}
     \caption{Vitesse angulaire (degrés/s) de la roue en fonction du temps (s).}
 \end{figure}
 
-Les données constructeurs fournissent une relation 
+Les données constructeurs fournissent en effet une relation 
 linéaire entre la vitesse angulaire et le couple d'entrée. $$\omega = a - b\tau$$
 
 On a essayé d'exploiter le théorème du moment cinétique à l'unité roue+rotor:
 
 $$I_w^y\dot{\omega} = \tau = \frac{a}{b} - \frac{\omega}{b}$$
 $$\dot{\omega} +  \frac{\omega}{T} = \frac{a}{T} \text{  où  } T=I_w^yb$$
+$$\text{De solution: } \omega = a\left(1 - \exp\left(-\frac{t}{T}\right) \right)$$
+
+On trouve $T$ comme l'abscisse de la courbe quand $y=a\left(1 - e^{-1}\right) \approx 0.63a$. 
+Cependant l'asymptote mesurée vaut $a_{exp} = 200 \text{ degrés}.s^{-1} = 3.5 rad.s^{-1}$ 
+ce qui est 10 fois plus lent que la valeur constructeur: $a_{th} = 320 \text{ rpm} = 33.5 rad.s^{-1}$
+
+On trouve alors en abscisse de $\omega = 0.63\cdot200 \text{ degrés}.s^{-1}$ : $T=0.1s$ (cellule B56) 
+puis $I_w^y = 44.2 kg.m^2$ différent d'un ordre de grandeur de $10^5$ des valeurs données par la CAO,
+ce qui est aberrant.
+
+Enfin notre dernière approche a été la CAO, a l'aide de des estimations des masses (cellule F35).
+Les valeurs obtenues sont cette fois plus petite d'un facteur $100$.
+
+Il est suprenant et frustrant d'avoir tant de variance dans les mesures des paramètres.
 
 
 \paragraph{Estimation des constantes électriques}
 La résistance et l'inductance interne du moteur ont été trouvées sur Internet 
 \href{https://forum.pololu.com/t/mechanics-and-electrical-parameters/18153/2}{ici}.
+Par manque de temps, nous n'avons pas comparé cela à des mesures sur notre bolide.
 
 \chapter{Implémentation du contrôleur en Arduino}
 

@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber rapport_automatique_gr7"] 1700055982 "rapport_automatique_gr7.bcf" "rapport_automatique_gr7.bbl" "rapport_automatique_gr7" 1700056537 0
+["biber rapport_automatique_gr7"] 1701292801 "rapport_automatique_gr7.bcf" "rapport_automatique_gr7.bbl" "rapport_automatique_gr7" 1701295593 0
   "bibliography.bib" 0 -1 0 ""
-  "rapport_automatique_gr7.bcf" 1700056537 107353 5126ec284b7cb1b18cd2d41da2972233 "pdflatex"
+  "rapport_automatique_gr7.bcf" 1701295592 107353 5126ec284b7cb1b18cd2d41da2972233 "pdflatex"
   (generated)
   "rapport_automatique_gr7.bbl"
   "rapport_automatique_gr7.blg"
   (rewritten before read)
-["pdflatex"] 1700056534 "e:/DOSSIERS PERSOS/ETUDES/ecoles_ingenieurs/mines paris/formation/2A/MECATRO/code/rapport_automatique/rapport_automatique_gr7.tex" "rapport_automatique_gr7.pdf" "rapport_automatique_gr7" 1700056537 0
+["pdflatex"] 1701295589 "e:/DOSSIERS PERSOS/ETUDES/ecoles_ingenieurs/mines paris/formation/2A/MECATRO/code/rapport_automatique/rapport_automatique_gr7.tex" "rapport_automatique_gr7.pdf" "rapport_automatique_gr7" 1701295593 0
   "C:/Users/Jules/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1699861949 83500 220a959d20f7a2db580fa7e4282a0d80 ""
   "C:/Users/Jules/AppData/Local/MiKTeX/fonts/tfm/public/rsfs/rsfs10.tfm" 1691223385 688 37338d6ab346c2f1466b29e195316aa4 ""
   "C:/Users/Jules/AppData/Local/MiKTeX/fonts/tfm/public/rsfs/rsfs5.tfm" 1691223389 684 3a51bd4fd9600428d5264cf25f04bb9a ""
@@ -144,23 +144,30 @@
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/tools/calc.sty" 1667242266 10214 de3e21cfc0eccc98ca7f8dac0ef263d2 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/tools/xspace.sty" 1667242266 4545 4c279ac9292a1be8afa9ab2f1d3299c2 ""
   "C:/Users/Jules/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "e:/DOSSIERS PERSOS/ETUDES/ecoles_ingenieurs/mines paris/formation/2A/MECATRO/code/rapport_automatique/rapport_automatique_gr7.tex" 1700056533 19415 8591e6135ea4bf172e2137f2d1a93d5a ""
+  "e:/DOSSIERS PERSOS/ETUDES/ecoles_ingenieurs/mines paris/formation/2A/MECATRO/code/rapport_automatique/rapport_automatique_gr7.tex" 1701295586 25480 2c249fbabdbf6f7362d77d198d45edb3 ""
   "figures/cLF_schema.jpg" 1699871539 47501 738e60c81ceb157d801eb487d469efa0 ""
   "figures/courbes-construc.png" 1699881559 95500 3ffc661f57579f16c588211d2644982d ""
   "figures/eigSys.png" 1700038849 3150 c11486a30e2b9c2e93fe517d1d78c5b0 ""
+  "figures/eigSysDifBF.png" 1700038927 3225 1a66d7411866c2dd7f4038e6f302a452 ""
+  "figures/eigSysDifBFApprox2.png" 1701294368 4155 1f4f1c19c3f97721b907af7d8deed581 ""
   "figures/eigSysDifOl.png" 1700038897 2278 0f906b466e745a4d14fa5ebeb7e99c4e ""
   "figures/eigSysSumBF.png" 1700038910 2541 eb0e9b766753fa7decdf6ffa004f310e ""
-  "figures/eigSysSumBFApprox.png" 1700038913 3740 00cb058a0c74c20e3b4e0bbe165f7c6e ""
+  "figures/eigSysSumBFApprox.png" 1701294784 4047 3d173c964109eaa82f75ecb0557af0a1 ""
   "figures/eigSysSumOl.png" 1700038890 2154 9ce735a28eb8d91e87fd629ca56e9eb8 ""
   "figures/inertie_roue.png" 1699869699 77112 4ab9f95bc8dac5613188a7d4eb5d6838 ""
+  "figures/repfreqdifbf_approx.jpg" 1700038511 99254 3702ca99e6b12f884ded23763351d232 ""
   "figures/repfreqsumbf_approx.jpg" 1700056365 187310 c88ec8dd6b46f3d2cbc2cfee682de013 ""
+  "figures/reptempdifbf_approx.jpg" 1700038564 51207 696500496bd91e20040c6d345b032c23 ""
   "figures/reptempsumbf_approx.jpg" 1700038702 57730 779867c6e7a00d8631b49ac5ee86092a ""
-  "rapport_automatique_gr7.aux" 1700056537 4918 4e29c510af860f2496fbd6ddbf59d553 "pdflatex"
+  "figures/sysSimulBF.png" 1701206290 56008 1d27189d77bd2f27f63ecced105dd7aa ""
+  "figures/sysSimulBFrepInputs.png" 1701206775 15051 12e4a0614013a45237c5a9548aba3b7e ""
+  "figures/sysSimulBFrepOutputs.png" 1701206107 41243 78d4f1f203c1b79884a1d57592b7e014 ""
+  "rapport_automatique_gr7.aux" 1701295592 7659 b4e722c35215e938b1e655f8612034ae "pdflatex"
   "rapport_automatique_gr7.bbl" 1699861988 0 d41d8cd98f00b204e9800998ecf8427e "biber rapport_automatique_gr7"
-  "rapport_automatique_gr7.out" 1700056537 830 4af34820879f807f9c0b242ea916f200 "pdflatex"
-  "rapport_automatique_gr7.run.xml" 1700056537 2440 e739705cc60dbd9708653fa675c40585 "pdflatex"
-  "rapport_automatique_gr7.tex" 1700056533 19415 8591e6135ea4bf172e2137f2d1a93d5a ""
-  "rapport_automatique_gr7.toc" 1700056537 1580 8afbea3aae44c874113843a0758bc0d0 "pdflatex"
+  "rapport_automatique_gr7.out" 1701295592 830 4af34820879f807f9c0b242ea916f200 "pdflatex"
+  "rapport_automatique_gr7.run.xml" 1701295592 2440 e739705cc60dbd9708653fa675c40585 "pdflatex"
+  "rapport_automatique_gr7.tex" 1701295586 25480 2c249fbabdbf6f7362d77d198d45edb3 ""
+  "rapport_automatique_gr7.toc" 1701295592 1671 1c653be31757d0db2da18859da9b05cd "pdflatex"
   (generated)
   "rapport_automatique_gr7.aux"
   "rapport_automatique_gr7.bcf"
