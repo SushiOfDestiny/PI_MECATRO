@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.5.3)  29 NOV 2023 23:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.5.3)  29 NOV 2023 23:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1047,7 +1047,7 @@ Overfull \hbox (1.90576pt too wide) in paragraph at lines 658--659
 Chapter 4.
 [14
 
-] (rapport_automatique_gr7.aux)
+] [15] (rapport_automatique_gr7.aux)
 Package rerunfilecheck Info: File `rapport_automatique_gr7.out' has not changed.
 (rerunfilecheck)             Checksum: 4AF34820879F807F9C0B242EA916F200;830.
 Package logreq Info: Writing requests to 'rapport_automatique_gr7.run.xml'.
@@ -1055,17 +1055,17 @@ Package logreq Info: Writing requests to 'rapport_automatique_gr7.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 22054 strings out of 476315
- 384248 string characters out of 5787197
+ 22058 strings out of 476315
+ 384288 string characters out of 5787197
  1877068 words of memory out of 5000000
  42150 multiletter control sequences out of 15000+600000
  551662 words of font info for 133 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  63i,21n,68p,1031b,801s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/pxex.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/pxexa.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/pxsy.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/rpcxr.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/rpxmi.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/rpxr.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on rapport_automatique_gr7.pdf (15 pages, 848479 bytes).
+Output written on rapport_automatique_gr7.pdf (16 pages, 853364 bytes).
 PDF statistics:
- 204 PDF objects out of 1000 (max. 8388607)
- 46 named destinations out of 1000 (max. 500000)
+ 212 PDF objects out of 1000 (max. 8388607)
+ 50 named destinations out of 1000 (max. 500000)
  118 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -684,7 +684,41 @@ La résistance et l'inductance interne du moteur ont été trouvées sur Interne
 Par manque de temps, nous n'avons pas comparé cela à des mesures sur notre bolide.
 
 \chapter{Implémentation du contrôleur en Arduino}
+\paragraph{Structure}
 
+Après discussion avec M. Di Meglio, le contrôleur que nous voulions implémenter en Arduino se composait de :
+\begin{itemize}
+\item Un contrôleur PD sur le sous-système "Sum" prenant en entrée la mesure de la somme des angles, renvoyant la somme des tensions des deux moteurs, et qui régit la vitesse en translation
+\item Un contrôleur PD sur le sous-système "Diff", prenant en entrée la mesure de la distance par rapport à la ligne (donnée par le Line Follower Array), renvoyant la différence des tensions des deux moteurs, et qui régit la vitesse en rotation.
+\end{itemize}
+\paragraph{Contrôle de l'écart à la ligne} 
+
+Nous avons d'abord implémenté un contrôleur P sur le sous-système "Diff" en imposant la somme des tensions (ce qui revient à imposer une vitesse longitudinale en ligne droite). Le code est disponible dans le fichier TODO: INSERER FICHIER
+
+Après avoir effectué cette implémentation et avoir trouvé des gains satisfaisants, nous avons implémenté le contrôleur PD sur le sous-système "Diff", puis réglé les gains de ce contrôleur à partir d'observations de la performance du robot sur le circuit. Voici quelques questions qui guidaient notre réflexion :
+\begin{itemize}
+    \item Le robot arrive-t-il à tourner assez dans les virages ? Si non, augmenter le gain proportionnel.
+    \item Le robot est-il assez nerveux ? Si non, augmenter le gain dérivé. A l'inverse si oui (visible par des oscillations très rapides), baisser le gain dérivé.
+\end{itemize}
+
+Le code correspondant est disponible dans le fichier TODO: INSERER FICHIER.
+
+Nous nous sommes également questionnés sur l'utilité de l'implémentation d'un PID plutôt qu'un PD sur l'écart par rapport à la ligne, mais nous avons abandonné cette idée en raison de la quantification du Line Follower Array :
+\begin{itemize}
+    \item Avant l'implémentation, nous avions l'intuition que l'ajout d'un terme intégral n'allait pas être satisfaisant à cause de la quantification du capteur, qui est importante : il est très dur d'arriver parfaitement au "0" du Line Follower Array, même en étant sur la ligne. Il n'aurait donc pas été possible de se débarasser de l'erreur statique, même avec un terme intégral. Au contraire, ce terme rajouterait des erreurs "numériques".
+    \item De brefs tests sur le circuit ont confirmé cette intuition.
+\end{itemize}
 % \printbibliography
 
+\paragraph{Contrôle de la vitesse en translation}
+Après avoir implémenté le contrôleur PD sur l'écart à la ligne, nous avons essayé d'implémenter le contrôle de la vitesse en translation, matérialisé par la somme des tensions des deux moteurs. Le code correspondant est disponible dans TODO:INSERER FICHIER
+
+Néanmoins, les gains proposés par Matlab sur ce sous-système n'étaient pas satisfaisants et la performance du robot sur le circuit était moins bonne qu'en imposant une somme des tensions constante. Un réglage plus manuel des gains n'a pas donné de résultat satisfaisant non plus. Nous avons donc décidé de ne pas implémenter le contrôleur PD sur la somme des angles mesurés par les encodeurs.
+
+Cependant, nous avons vite identifié que notre robot n'allait pas à une vitesse optimale en ligne droite, et nous nous sommes demandés comment nous pouvions améliorer ce comportement sans utiliser ce contrôleur. Nous avons opté pour une solution non-linéaire de "seuil" : 
+\begin{itemize}
+    \item Si l'écart à la ligne est supérieure à une certaine valeur seuil pré-définie, nous considérons que le robot est dans un virage, et nous adaptons sa vitesse en fonction en baissant la valeur de la commande de la somme des tensions des deux moteurs vers une valeur pré-définie.
+    \item Sinon, nous considérons que le robot est en ligne droite et nous augmentons la valeur de la commande de la somme des tensions à une valeur pré-définie.
+\end{itemize}
+Le code correspondant, qui est celui utilisé lors du challenge, est disponible dans TODO:INSERER FICHIER.
 \end{document}

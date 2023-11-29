@@ -1,0 +1,9 @@
+[0] Config.pm:307> INFO - This is Biber 2.17
+[0] Config.pm:310> INFO - Logfile is 'rapport_automatique_gr7.blg'
+[155] biber-MSWIN32:340> INFO - === 
+[208] Biber.pm:418> INFO - Reading 'rapport_automatique_gr7.bcf'
+[347] Biber.pm:972> INFO - Found 0 citekeys in bib section 0
+[365] bbl.pm:654> INFO - Writing 'rapport_automatique_gr7.bbl' with encoding 'UTF-8'
+[365] bbl.pm:757> INFO - Output to rapport_automatique_gr7.bbl
+[365] Biber.pm:130> WARN - The file 'rapport_automatique_gr7.bcf' does not contain any citations!
+[365] Biber.pm:132> INFO - WARNINGS: 1

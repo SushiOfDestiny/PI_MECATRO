@@ -60,7 +60,9 @@ namespace controllers
         return Ud;
     }
 
+    /*
     double udPLF(double deltacLFCurrent) {
-      return kclF*deltacLFCurrent;
+      return kcLF*deltacLFCurrent;
     }
+    */
 }
