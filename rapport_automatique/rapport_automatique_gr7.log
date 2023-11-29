@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.5.3)  29 NOV 2023 23:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.5.3)  29 NOV 2023 23:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -882,110 +882,110 @@ LaTeX Font Info:    Font shape `T1/pxr/b/n' in size <20.74> not available
 
 ]
 Chapter 2.
-LaTeX Font Info:    Trying to load font information for TS1+pxr on input line 93.
+LaTeX Font Info:    Trying to load font information for TS1+pxr on input line 96.
 (C:\Users\Jules\AppData\Local\Programs\MiKTeX\tex/latex/pxfonts\ts1pxr.fd
 File: ts1pxr.fd 2000/12/14 v1.0
 ) [3
 
 ]
-<figures/cLF_schema.jpg, id=49, 1498.59875pt x 1273.75874pt>
+<figures/cLF_schema.jpg, id=50, 1498.59875pt x 1273.75874pt>
 File: figures/cLF_schema.jpg Graphic file (type jpg)
 <use figures/cLF_schema.jpg>
-Package pdftex.def Info: figures/cLF_schema.jpg  used on input line 111.
+Package pdftex.def Info: figures/cLF_schema.jpg  used on input line 114.
 (pdftex.def)             Requested size: 256.55872pt x 218.05212pt.
 
-Overfull \hbox (7.19629pt too wide) in paragraph at lines 118--121
+Overfull \hbox (7.19629pt too wide) in paragraph at lines 121--124
  []\T1/pxr/bx/n/10 Recherche des tra-jec-toires d'équilibre[] \T1/pxr/m/n/10 Notre tra-jec-toire d'équilibre du mou-ve-ment rec-tiligne uni-forme est car-ac-térisée
  []
 
 [4 <./figures/cLF_schema.jpg>]
-<figures/eigSys.png, id=56, 80.09924pt x 143.93774pt>
+<figures/eigSys.png, id=57, 80.09924pt x 143.93774pt>
 File: figures/eigSys.png Graphic file (type png)
 <use figures/eigSys.png>
-Package pdftex.def Info: figures/eigSys.png  used on input line 169.
+Package pdftex.def Info: figures/eigSys.png  used on input line 172.
 (pdftex.def)             Requested size: 102.62192pt x 184.42195pt.
  [5 <./figures/eigSys.png>]
-<figures/eigSysSumOl.png, id=66, 86.724pt x 78.2925pt>
+<figures/eigSysSumOl.png, id=67, 86.724pt x 78.2925pt>
 File: figures/eigSysSumOl.png Graphic file (type png)
 <use figures/eigSysSumOl.png>
-Package pdftex.def Info: figures/eigSysSumOl.png  used on input line 275.
+Package pdftex.def Info: figures/eigSysSumOl.png  used on input line 278.
 (pdftex.def)             Requested size: 153.93678pt x 138.9779pt.
-<figures/eigSysDifOl.png, id=67, 93.951pt x 93.951pt>
+<figures/eigSysDifOl.png, id=68, 93.951pt x 93.951pt>
 File: figures/eigSysDifOl.png Graphic file (type png)
 <use figures/eigSysDifOl.png>
-Package pdftex.def Info: figures/eigSysDifOl.png  used on input line 279.
+Package pdftex.def Info: figures/eigSysDifOl.png  used on input line 282.
 (pdftex.def)             Requested size: 153.93678pt x 153.95735pt.
 
-Overfull \hbox (1.49998pt too wide) in paragraph at lines 273--282
+Overfull \hbox (1.49998pt too wide) in paragraph at lines 276--285
 [][] [] 
  []
 
 [6 <./figures/eigSysSumOl.png> <./figures/eigSysDifOl.png>]
-Overfull \hbox (4.10681pt too wide) in paragraph at lines 357--360
+Overfull \hbox (4.10681pt too wide) in paragraph at lines 360--363
  []\T1/pxr/bx/n/10 Modélisation du con-trôleur du sous-système "Dif"[] \T1/pxr/m/n/10 Pour con-trôler l'état de di-men-sion 3, on a choisit un Pro-por-tion-nel
  []
 
 [7]
-<figures/eigSysSumBF.png, id=86, 172.2435pt x 70.46326pt>
+<figures/eigSysSumBF.png, id=87, 172.2435pt x 70.46326pt>
 File: figures/eigSysSumBF.png Graphic file (type png)
 <use figures/eigSysSumBF.png>
-Package pdftex.def Info: figures/eigSysSumBF.png  used on input line 469.
+Package pdftex.def Info: figures/eigSysSumBF.png  used on input line 472.
 (pdftex.def)             Requested size: 205.24774pt x 83.96841pt.
-<figures/eigSysSumBFApprox.png, id=87, 185.493pt x 90.3375pt>
+<figures/eigSysSumBFApprox.png, id=88, 185.493pt x 90.3375pt>
 File: figures/eigSysSumBFApprox.png Graphic file (type png)
 <use figures/eigSysSumBFApprox.png>
-Package pdftex.def Info: figures/eigSysSumBFApprox.png  used on input line 473.
+Package pdftex.def Info: figures/eigSysSumBFApprox.png  used on input line 476.
 (pdftex.def)             Requested size: 205.24774pt x 99.9615pt.
 
-Overfull \hbox (1.49998pt too wide) in paragraph at lines 467--479
+Overfull \hbox (1.49998pt too wide) in paragraph at lines 470--482
 [][] [] 
  []
 
-<figures/reptempsumbf_approx.jpg, id=88, 702.625pt x 526.96875pt>
+<figures/reptempsumbf_approx.jpg, id=89, 702.625pt x 526.96875pt>
 File: figures/reptempsumbf_approx.jpg Graphic file (type jpg)
 <use figures/reptempsumbf_approx.jpg>
-Package pdftex.def Info: figures/reptempsumbf_approx.jpg  used on input line 486.
+Package pdftex.def Info: figures/reptempsumbf_approx.jpg  used on input line 489.
 (pdftex.def)             Requested size: 205.24384pt x 153.9347pt.
-<figures/repfreqsumbf_approx.jpg, id=89, 1927.2pt x 989.6975pt>
+<figures/repfreqsumbf_approx.jpg, id=90, 1927.2pt x 989.6975pt>
 File: figures/repfreqsumbf_approx.jpg Graphic file (type jpg)
 <use figures/repfreqsumbf_approx.jpg>
-Package pdftex.def Info: figures/repfreqsumbf_approx.jpg  used on input line 490.
+Package pdftex.def Info: figures/repfreqsumbf_approx.jpg  used on input line 493.
 (pdftex.def)             Requested size: 307.8736pt x 158.0981pt.
 
-Overfull \hbox (1.49998pt too wide) in paragraph at lines 484--497
+Overfull \hbox (1.49998pt too wide) in paragraph at lines 487--500
 [][] [] 
  []
 
-<figures/eigSysDifBF.png, id=90, 172.2435pt x 79.497pt>
+<figures/eigSysDifBF.png, id=91, 172.2435pt x 79.497pt>
 File: figures/eigSysDifBF.png Graphic file (type png)
 <use figures/eigSysDifBF.png>
-Package pdftex.def Info: figures/eigSysDifBF.png  used on input line 506.
+Package pdftex.def Info: figures/eigSysDifBF.png  used on input line 509.
 (pdftex.def)             Requested size: 205.24774pt x 94.7336pt.
-<figures/eigSysDifBFApprox2.png, id=91, 177.66376pt x 95.1555pt>
+<figures/eigSysDifBFApprox2.png, id=92, 177.66376pt x 95.1555pt>
 File: figures/eigSysDifBFApprox2.png Graphic file (type png)
 <use figures/eigSysDifBFApprox2.png>
-Package pdftex.def Info: figures/eigSysDifBFApprox2.png  used on input line 510.
+Package pdftex.def Info: figures/eigSysDifBFApprox2.png  used on input line 513.
 (pdftex.def)             Requested size: 205.24774pt x 109.93323pt.
 
-Overfull \hbox (1.49998pt too wide) in paragraph at lines 504--518
+Overfull \hbox (1.49998pt too wide) in paragraph at lines 507--521
 [][] [] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/reptempdifbf_approx.jpg, id=92, 702.625pt x 526.96875pt>
+<figures/reptempdifbf_approx.jpg, id=93, 702.625pt x 526.96875pt>
 File: figures/reptempdifbf_approx.jpg Graphic file (type jpg)
 <use figures/reptempdifbf_approx.jpg>
-Package pdftex.def Info: figures/reptempdifbf_approx.jpg  used on input line 524.
+Package pdftex.def Info: figures/reptempdifbf_approx.jpg  used on input line 527.
 (pdftex.def)             Requested size: 256.55872pt x 192.42642pt.
-<figures/repfreqdifbf_approx.jpg, id=93, 702.625pt x 526.96875pt>
+<figures/repfreqdifbf_approx.jpg, id=94, 702.625pt x 526.96875pt>
 File: figures/repfreqdifbf_approx.jpg Graphic file (type jpg)
 <use figures/repfreqdifbf_approx.jpg>
-Package pdftex.def Info: figures/repfreqdifbf_approx.jpg  used on input line 528.
+Package pdftex.def Info: figures/repfreqdifbf_approx.jpg  used on input line 531.
 (pdftex.def)             Requested size: 256.55872pt x 192.42642pt.
 
-Overfull \hbox (1.49998pt too wide) in paragraph at lines 522--541
+Overfull \hbox (1.49998pt too wide) in paragraph at lines 525--544
 [][] [] 
  []
 
@@ -993,27 +993,27 @@ Overfull \hbox (1.49998pt too wide) in paragraph at lines 522--541
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [8 <./figures/eigSysSumBF.png> <./figures/eigSysSumBFApprox.png> <./figures/reptempsumbf_approx.jpg> <./figures/repfreqsumbf_approx.jpg>]
-<figures/sysSimulBF.png, id=103, 990.70125pt x 361.35pt>
+<figures/sysSimulBF.png, id=104, 990.70125pt x 361.35pt>
 File: figures/sysSimulBF.png Graphic file (type png)
 <use figures/sysSimulBF.png>
-Package pdftex.def Info: figures/sysSimulBF.png  used on input line 552.
+Package pdftex.def Info: figures/sysSimulBF.png  used on input line 555.
 (pdftex.def)             Requested size: 513.11745pt x 187.15321pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/sysSimulBFrepInputs.png, id=104, 578.76225pt x 580.569pt>
+<figures/sysSimulBFrepInputs.png, id=105, 578.76225pt x 580.569pt>
 File: figures/sysSimulBFrepInputs.png Graphic file (type png)
 <use figures/sysSimulBFrepInputs.png>
-Package pdftex.def Info: figures/sysSimulBFrepInputs.png  used on input line 569.
+Package pdftex.def Info: figures/sysSimulBFrepInputs.png  used on input line 572.
 (pdftex.def)             Requested size: 359.18063pt x 360.3034pt.
-<figures/sysSimulBFrepOutputs.png, id=105, 1156.32pt x 579.3645pt>
+<figures/sysSimulBFrepOutputs.png, id=106, 1156.32pt x 579.3645pt>
 File: figures/sysSimulBFrepOutputs.png Graphic file (type png)
 <use figures/sysSimulBFrepOutputs.png>
-Package pdftex.def Info: figures/sysSimulBFrepOutputs.png  used on input line 574.
+Package pdftex.def Info: figures/sysSimulBFrepOutputs.png  used on input line 577.
 (pdftex.def)             Requested size: 513.11745pt x 257.08705pt.
 
-LaTeX Warning: Float too large for page by 18.59802pt on input line 589.
+LaTeX Warning: Float too large for page by 18.59802pt on input line 592.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1021,25 +1021,25 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [9 <./figures/eigSysDifBF.png> <./figures/eigSysDifBFApprox2.png> <./figures/reptempdifbf_approx.jpg> <./figures/repfreqdifbf_approx.jpg>] [10 <./figures/sysSimulBF.png>] [11 <./figures/sysSimulBFrepInputs.png> <./figures/sysSimulBFrepOutputs.png>]
 Chapter 3.
 
-Overfull \hbox (6.12675pt too wide) in paragraph at lines 610--613
+Overfull \hbox (6.12675pt too wide) in paragraph at lines 613--616
 []\T1/pxr/m/n/10 En se plaçant sans cou-ple, donc sans courant, et en util-isant les courbes con-struc-teurs, on cal-cule $\OML/pxmi/m/it/10 k \OT1/pxr/m/n/10 = [] \OML/pxmi/m/it/10 V=\OT1/pxr/m/n/10 (\OML/pxmi/m/it/10 rad:s[]\OT1/pxr/m/n/10 1)$\T1/pxr/m/n/10 . 
  []
 
-<figures/courbes-construc.png, id=129, 572.1375pt x 414.95026pt>
+<figures/courbes-construc.png, id=130, 572.1375pt x 414.95026pt>
 File: figures/courbes-construc.png Graphic file (type png)
 <use figures/courbes-construc.png>
-Package pdftex.def Info: figures/courbes-construc.png  used on input line 616.
+Package pdftex.def Info: figures/courbes-construc.png  used on input line 619.
 (pdftex.def)             Requested size: 256.0748pt x 185.71915pt.
 [12
 
  <./figures/courbes-construc.png>]
-<figures/inertie_roue.png, id=140, 929.3922pt x 501.5538pt>
+<figures/inertie_roue.png, id=141, 929.3922pt x 501.5538pt>
 File: figures/inertie_roue.png Graphic file (type png)
 <use figures/inertie_roue.png>
-Package pdftex.def Info: figures/inertie_roue.png  used on input line 654.
+Package pdftex.def Info: figures/inertie_roue.png  used on input line 657.
 (pdftex.def)             Requested size: 426.79134pt x 230.31958pt.
 
-Overfull \hbox (1.90576pt too wide) in paragraph at lines 658--659
+Overfull \hbox (1.90576pt too wide) in paragraph at lines 661--662
 []\T1/pxr/m/n/10 Les don-nées con-struc-teurs four-nissent en ef-fet une re-la-tion linéaire en-tre la vitesse an-gu-laire et le cou-ple d'entrée. 
  []
 
@@ -1063,9 +1063,9 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  63i,21n,68p,1031b,801s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/pxex.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/pxexa.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/pxsy.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/rpcxr.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/rpxmi.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/public/pxfonts/rpxr.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/Jules/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on rapport_automatique_gr7.pdf (16 pages, 853364 bytes).
+Output written on rapport_automatique_gr7.pdf (16 pages, 853672 bytes).
 PDF statistics:
- 212 PDF objects out of 1000 (max. 8388607)
+ 213 PDF objects out of 1000 (max. 8388607)
  50 named destinations out of 1000 (max. 500000)
  118 words of extra memory for PDF output out of 10000 (max. 10000000)
 
