@@ -21,6 +21,6 @@ Projet d'ingénierie visant à construire et programmer un robot suiveur de lign
   Guidage en rotation
   Liaison encastrement
 
--CAO
-Création de pièces et assemblages sur xDesign
-Préparation au prototypage
+- CAO
+  Création de pièces et assemblages sur xDesign
+  Préparation au prototypage
