@@ -12,14 +12,14 @@ Projet d'ingénierie visant à construire et programmer un robot suiveur de lign
 
 ### Partie Mécanique
 - Ingénierie des systèmes
-Analyse fonctionnelle et structurelle de systèmes pluri-techniques
-Elaboration d’un cahier des charges et rédaction des critères de validations d’exigences
+  Analyse fonctionnelle et structurelle de systèmes pluri-techniques
+  Elaboration d’un cahier des charges et rédaction des critères de validations d’exigences
 
--Construction
-Etude de solutions technologiques et conception préliminaire
-Lecture de plan
-Guidage en rotation
-Liaison encastrement
+- Construction
+  Etude de solutions technologiques et conception préliminaire
+  Lecture de plan
+  Guidage en rotation
+  Liaison encastrement
 
 -CAO
 Création de pièces et assemblages sur xDesign
